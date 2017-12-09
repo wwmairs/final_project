@@ -10,6 +10,18 @@ const B_PADDING = 2;
 const B_RATIO   = B_SIZE + B_PADDING
 
 
+
+// TODO
+// extend Blocks with:
+//  - # people to represent
+//  - ratio of people per Block
+//  - left and top justified
+//  - instead of holding a single list of Block instances
+//    it should have a dictionary of lists of Block instances
+//
+// extend Block with:
+//  - 
+
 // an instance of a Blocks class should make:
 //      - a wrapper for all of the Blocks it contains
 //      - a square for each Block it contains
@@ -58,6 +70,7 @@ class Block {
         this.on = ! this.on;
         this.on ? this.b.setAttribute("fill", this.c) : this.b.setAttribute("fill", "white");
     }
+
 
 }
 
