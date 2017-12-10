@@ -51,11 +51,22 @@ class Blocks {
 
     makeSquare(numBlocks) {
         this.allOff();
-        let side = Math.sqrt(numBlocks);
-        for (let x = 0; x < side; x++) {
-            for (let y = 0; y < side; y++) {
+        let side = Math.floor(Math.sqrt(numBlocks));
+        console.log(side);
+        let count = 0;
+        for (var x = 0; x < side; x++) {
+            for (var y = 0; y < side; y++) {
                 this.bs[x + this.blocksTall * y].turnOn();
+                count++;
             }
+        }
+        // this part is supposed to fill in the extra parts on one side
+        // it doesn't work yet
+        while (count < numBlocks) {
+            y =
+            this.bs[x + this.blocksTall * y].turnOn();
+            y++;
+            count++;
         }
     }
 
@@ -64,6 +75,8 @@ class Blocks {
             this.bs[n].turnOff();
         }
     }
+
+
 
 }
 
@@ -114,4 +127,4 @@ let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", window.innerWidth);
 svg.setAttribute("height", 500);
 container.appendChild(svg);
-let b = new Blocks(10, 10, 600, 400, 10);
+let b = new Blocks(10, 10, 600, 400, 20);
