@@ -7,7 +7,9 @@ const B_PADDING = 2;
 const B_RATIO   = B_SIZE + B_PADDING
 
 const BS_PADDING = 10
-const BS_DIMEN = 150
+const BS_HEIGHT = 150
+const BS_WIDTH = 250
+const BS_TOTAL = (BS_HEIGHT / B_RATIO) * (BS_WIDTH / B_RATIO)
 
 
 // TODO
@@ -33,13 +35,7 @@ class Country {
         this.gunSuicide = data[3];
         this.totalSuicide = data[4];
         this.totalGuns = data[5]
-        this.block = new Blocks (x, y, BS_DIMEN, BS_DIMEN, 100)
-    }
-}
-class Canvas {
-    constructor(countries, largest_pop) {
-        this.countries = countries 
-        
+        this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT, BS_TOTAL)
     }
 }
 
@@ -64,7 +60,7 @@ class Blocks {
                 counter++;
             }
         }
-            this.makeSquare(numBlocks);
+        //this.makeSquare(numBlocks);
     }
 
     makeSquare(numBlocks) {
@@ -155,20 +151,21 @@ $.get( {url : "/country_data",
         }
        });
 
-function makeCountries(countrees) {
+function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
-    //var countries = []
+
+    // starting point for drawing blocks
     x_pos = 10
     y_pos = 10
-    for (var i = 0; i < countrees.length; i++) {
-        country = new Country(countrees[i], x_pos, y_pos)
+    for (var i = 0; i < cs.length; i++) {
+        country = new Country(cs[i], x_pos, y_pos)
         countries.push(country)
 
         if (i % 2 == 0) {
-            x_pos += (BS_DIMEN + BS_PADDING)
+            x_pos += (BS_WIDTH + BS_PADDING)
         } else {
             x_pos = 10
-            y_pos += (BS_DIMEN + BS_PADDING)
+            y_pos += (BS_HEIGHT + BS_PADDING)
         }
     }
     console.log(countries)
@@ -181,6 +178,5 @@ let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", window.innerWidth);
 svg.setAttribute("height", 800);
-var b = new Blocks(10, 10, 600, 400, 18);
 container.appendChild(svg);
-//let b = new Blocks(10, 10, 600, 400, 400);
+
