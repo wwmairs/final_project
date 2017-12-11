@@ -40,7 +40,7 @@ class Country {
 }
 
 class Blocks {
-    constructor(_x, _y, width, height, numBlocks) {
+    constructor(_x, _y, width, height) {
         this.x  = _x;
         this.y  = _y;
         this.w  = width;
@@ -60,38 +60,52 @@ class Blocks {
                 counter++;
             }
         }
-        //this.makeSquare(numBlocks);
     }
 
     makeSquare(numBlocks) {
         this.allOff();
+        if (numBlocks >= this.capacity) {
+            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
+        }
         let side = Math.floor(Math.sqrt(numBlocks));
         console.log(side);
         let count = 0;
         for (var x = 0; x < side; x++) {
             for (var y = 0; y < side; y++) {
                 this.bs[y + this.blocksTall * x].turnOn();
-                console.log("turning on block ", x, y);
-                console.log("count is ", count);
                 count++;
             }
         }
-        // this part is supposed to fill in the extra parts on one side
-        // it doesn't work yet
         y = 0
         while (count < numBlocks) {
-            console.log("turning on block ", x, y);
-            console.log("count is ", count);
             this.bs[y + this.blocksTall * x].turnOn();
             y++;
             count++;
         }
-        console.log(count, numBlocks);
+
+    }
+    // expects a list of objects shaped like this:
+    // {name  : "someName",
+    //  size  : someNumberOfBlocks,
+    //  color : "someColorStringOrMaybeHexValue"}
+    colorCategories(categories) {
+        let sum = 0;
+        cateries.map(c => sum += c.size);
+        if (sum > this.capacity) {
+            throw "you're trying to color " + sum + " blocks, but only " + this.capacity + " blocks can fit";
+        }
+
     }
 
     allOff() {
         for (let n = 0; n < this.bs.length; n++) {
             this.bs[n].turnOff();
+        }
+    }
+
+    allOn() {
+        for (let n = 0; n < this.bs.length; n++) {
+            this.bs[n].turnOn();
         }
     }
 
@@ -179,4 +193,3 @@ let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", window.innerWidth);
 svg.setAttribute("height", 800);
 container.appendChild(svg);
-
