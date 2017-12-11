@@ -44,7 +44,7 @@ class Canvas {
 }
 
 class Blocks {
-    constructor(_x, _y, width, height, numBlocks) {
+    constructor(_x, _y, width, height) {
         this.x  = _x;
         this.y  = _y;
         this.w  = width;
@@ -67,7 +67,6 @@ class Blocks {
                 counter++;
             }
         }
-            this.makeSquare(numBlocks);
     }
 
     makeSquare(numBlocks) {
