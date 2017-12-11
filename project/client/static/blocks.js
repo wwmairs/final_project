@@ -93,7 +93,15 @@ class Blocks {
 
     }
     // expects a list of objects shaped like this:
-    colorCategories() {
+    // {name  : "someName",
+    //  size  : someNumberOfBlocks,
+    //  color : "someColorStringOrMaybeHexValue"}
+    colorCategories(categories) {
+        let sum = 0;
+        cateries.map(c => sum += c.size);
+        if (sum > this.capacity) {
+            throw "you're trying to color " + sum + " blocks, but only " + this.capacity + " blocks can fit";
+        }
 
     }
 
