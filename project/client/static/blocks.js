@@ -112,7 +112,7 @@ function makeCountries(countrees) {
 
 function makeBlocks() {
     for (var i = 0; i < countries.length; i++) {
-
+        
     }
 }
 
