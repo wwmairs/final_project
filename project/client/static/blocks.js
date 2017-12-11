@@ -57,9 +57,6 @@ class Blocks {
         this.blocksWide = Math.ceil(width / B_RATIO);
         this.blocksTall = Math.ceil(height / B_RATIO);
         this.capacity = this.blocksWide * this.blocksTall;
-        if (numBlocks >= this.capacity) {
-            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
-        }
         let counter = 0
         for (let i = 0; i < this.blocksWide; i++) {
             for (let j = 0; j < this.blocksTall; j++) {
