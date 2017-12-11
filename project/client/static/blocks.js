@@ -184,7 +184,7 @@ let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", window.innerWidth);
 svg.setAttribute("height", 800);
-var b = new Blocks(10, 10, 600, 400, 20);
+var b = new Blocks(10, 10, 600, 400, 18);
 container.appendChild(svg);
 
 svg.appendChild(newText)
