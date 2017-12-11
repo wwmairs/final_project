@@ -61,7 +61,7 @@ class Blocks {
                 counter++;
             }
         }
-        this.makeSquare(numBlocks);
+            this.makeSquare(numBlocks);
     }
 
     makeSquare(numBlocks) {
@@ -71,18 +71,23 @@ class Blocks {
         let count = 0;
         for (var x = 0; x < side; x++) {
             for (var y = 0; y < side; y++) {
-                this.bs[x + this.blocksTall * y].turnOn();
+                this.bs[y + this.blocksTall * x].turnOn();
+                console.log("turning on block ", x, y);
+                console.log("count is ", count);
                 count++;
             }
         }
         // this part is supposed to fill in the extra parts on one side
         // it doesn't work yet
+        y = 0
         while (count < numBlocks) {
-            y =
-            this.bs[x + this.blocksTall * y].turnOn();
+            console.log("turning on block ", x, y);
+            console.log("count is ", count);
+            this.bs[y + this.blocksTall * x].turnOn();
             y++;
             count++;
         }
+        console.log(count, numBlocks);
     }
 
     allOff() {
@@ -163,6 +168,7 @@ function makeBlocks() {
     }
 }
 
+
 // begin bullshit that will be removed but exists rn as an example
 var newText = document.createElementNS(svgns,"text");
 newText.setAttributeNS(null,"x", 400);     
@@ -178,6 +184,7 @@ let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", window.innerWidth);
 svg.setAttribute("height", 800);
+var b = new Blocks(10, 10, 600, 400, 20);
 container.appendChild(svg);
-let b = new Blocks(10, 10, 600, 400, 400);
+
 svg.appendChild(newText)
