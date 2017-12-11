@@ -92,7 +92,7 @@ class Block {
 // here's where it all begins
 var countries = []
 // get req to get country data.... this was truly the best way to do it
-$.get( {url : "http://127.0.0.1:5000/country_data",
+$.get( {url : "/country_data",
         success : function(data) {
             parsedData = JSON.parse(data)
             view_data = parsedData.countries;

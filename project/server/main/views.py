@@ -10,7 +10,7 @@ main_blueprint = Blueprint('main', __name__,)
 def home():
     return render_template("blocks.html")
 
-@main_blueprint.route('/country_data')
+@main_blueprint.route('/country_data', methods=['POST', 'GET', 'OPTIONS'])
 def get_country_data():
     results = Country.query.with_entities(
         Country.name,
