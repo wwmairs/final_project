@@ -57,6 +57,9 @@ class Blocks {
         this.blocksWide = Math.ceil(width / B_RATIO);
         this.blocksTall = Math.ceil(height / B_RATIO);
         this.capacity = this.blocksWide * this.blocksTall;
+        if (numBlocks >= this.capacity) {
+            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
+        }
         let counter = 0
         for (let i = 0; i < this.blocksWide; i++) {
             for (let j = 0; j < this.blocksTall; j++) {
@@ -69,33 +72,40 @@ class Blocks {
 
     makeSquare(numBlocks) {
         this.allOff();
+        if (numBlocks >= this.capacity) {
+            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
+        }
         let side = Math.floor(Math.sqrt(numBlocks));
         console.log(side);
         let count = 0;
         for (var x = 0; x < side; x++) {
             for (var y = 0; y < side; y++) {
                 this.bs[y + this.blocksTall * x].turnOn();
-                console.log("turning on block ", x, y);
-                console.log("count is ", count);
                 count++;
             }
         }
-        // this part is supposed to fill in the extra parts on one side
-        // it doesn't work yet
         y = 0
         while (count < numBlocks) {
-            console.log("turning on block ", x, y);
-            console.log("count is ", count);
             this.bs[y + this.blocksTall * x].turnOn();
             y++;
             count++;
         }
-        console.log(count, numBlocks);
+
+    }
+    // expects a list of objects shaped like this:
+    colorCategories() {
+
     }
 
     allOff() {
         for (let n = 0; n < this.bs.length; n++) {
             this.bs[n].turnOff();
+        }
+    }
+
+    allOn() {
+        for (let n = 0; n < this.bs.length; n++) {
+            this.bs[n].turnOn();
         }
     }
 
@@ -181,6 +191,4 @@ let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", window.innerWidth);
 svg.setAttribute("height", 800);
-var b = new Blocks(10, 10, 600, 400, 18);
 container.appendChild(svg);
-//let b = new Blocks(10, 10, 600, 400, 400);
