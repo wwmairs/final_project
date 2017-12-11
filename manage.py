@@ -51,7 +51,39 @@ def create_data():
 	gun_suicides=1446,
 	suicides=10000,
         guns=10000000)
-    for country in [americuh, fronce]:
+    americuss = Country(
+        name='USAAA',
+        pop=323100000,
+        gun_deaths=33636,
+	gun_suicides=21175,
+	suicides=44193,
+        guns=357000000)
+    american = Country(
+        name='united states',
+        pop=323100000,
+        gun_deaths=33636,
+	gun_suicides=21175,
+	suicides=44193,
+        guns=357000000)
+    americant = Country(
+        name='americass',
+        pop=323100000,
+        gun_deaths=33636,
+	gun_suicides=21175,
+	suicides=44193,
+        guns=357000000)
+    americunt = Country(
+        name='amerique',
+        pop=323100000,
+        gun_deaths=33636,
+	gun_suicides=21175,
+	suicides=44193,
+        guns=357000000)
+
+
+
+
+    for country in [americuh, fronce, americuss, american, americant, americunt]:
         db.session.add(country)
 
     db.session.commit()

@@ -6,6 +6,8 @@ const B_SIZE    = 4;
 const B_PADDING = 2;
 const B_RATIO   = B_SIZE + B_PADDING
 
+const BS_PADDING = 10
+const BS_DIMEN = 150
 
 
 // TODO
@@ -24,13 +26,14 @@ const B_RATIO   = B_SIZE + B_PADDING
 //      - a square for each Block it contains
 
 class Country {
-    constructor(data) {
+    constructor(data, x, y) {
         this.name = data[0];
         this.population = data[1];
         this.gunDeaths = data[2];
         this.gunSuicide = data[3];
         this.totalSuicide = data[4];
         this.totalGuns = data[5]
+        this.block = new Blocks (x, y, BS_DIMEN, BS_DIMEN, 100)
     }
 }
 class Canvas {
@@ -150,28 +153,21 @@ $.get( {url : "/country_data",
 function makeCountries(countrees) {
     // this is messy code, we should talk about how to structure it.
     //var countries = []
+    x_pos = 10
+    y_pos = 10
     for (var i = 0; i < countrees.length; i++) {
-        country = new Country(countrees[i])
+        country = new Country(countrees[i], x_pos, y_pos)
         countries.push(country)
+
+        if (i % 2 == 0) {
+            x_pos += (BS_DIMEN + BS_PADDING)
+        } else {
+            x_pos = 10
+            y_pos += (BS_DIMEN + BS_PADDING)
+        }
     }
     console.log(countries)
 }
-
-function makeBlocks() {
-    for (var i = 0; i < countries.length; i++) {
-        
-    }
-}
-
-// begin bullshit that will be removed but exists rn as an example
-var newText = document.createElementNS(svgns,"text");
-newText.setAttributeNS(null,"x", 400);     
-newText.setAttributeNS(null,"y",600); 
-newText.setAttributeNS(null,"font-size","100");
-
-var textNode = document.createTextNode("PLEASEEE");
-newText.appendChild(textNode);
-// end bullshit
 
 // create container to contain all things SVG
 let container = document.getElementById("container");
@@ -179,5 +175,5 @@ let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", window.innerWidth);
 svg.setAttribute("height", 800);
 container.appendChild(svg);
-let b = new Blocks(10, 10, 600, 400, 400);
-svg.appendChild(newText)
+//let b = new Blocks(10, 10, 600, 400, 400);
+
