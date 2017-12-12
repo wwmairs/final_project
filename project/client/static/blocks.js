@@ -58,6 +58,11 @@ class Country {
         this.block.makeSquareWithColor(this.gunSuicide / GUN_SCALE, "red");
         
     }
+
+    displayOverlap() {
+        this.block.allOff();
+        this.block.makeSquareWithColorXY(this.gunDeaths / GUN_SCALE, "blue");
+    }
 }
 
 class Blocks {
@@ -125,6 +130,31 @@ class Blocks {
         y = 0
         while (count < numBlocks) {
             this.bs[y + this.blocksTall * x].setColor(color);
+            y++;
+            if (y >= side) {
+                y = 0;
+                x++;
+            }
+            count++;
+        }
+    }
+
+    makeSquareWithColorXY(numBlocks, color, startX, startY) {
+
+        if (numBlocks >= this.capacity) {
+            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
+        }
+        let side = Math.floor(Math.sqrt(numBlocks));
+        let count = 0;
+        for (var x = 0; x < side; x++) {
+            for (var y = 0; y < side; y++) {
+                this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+                count++;
+            }
+        }
+        y = 0
+        while (count < numBlocks) {
+            this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
             y++;
             if (y >= side) {
                 y = 0;
@@ -273,7 +303,8 @@ function makeCountries(cs) {
 function main() {
     for (var i = 0; i < countries.length; i++) {
         // countries[i].displayPopulation();
-        countries[i].colorByCategory();
+        // countries[i].colorByCategory();
+        countries[i].displayOverlap();
     }
 }
 
