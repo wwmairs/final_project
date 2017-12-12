@@ -18,26 +18,26 @@
     </style>
   </head>
   <body>
-    <div class="col-md-6 col-sm-6">
+    <div class="col-md-7 col-sm-7">
       <div id="container"></div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5 col-sm-5">
       <div id="myButtons" class="btn-group" data-toggle="buttons">
         
-        <label class="btn btn-default active">
-          <input value=1 type="radio" checked autocomplete="off">
+        <label class="btn btn-default  active">
+          <input value="0" type="radio" name="view" checked  autocomplete="off">
         </label>
         
         <label class="btn btn-default">
-          <input value=2 type="radio" autocomplete="off">
+          <input value="1" type="radio" name="view" autocomplete="off">
         </label>
         
         <label class="btn btn-default">
-          <input value=3 type="radio" autocomplete="off">
+          <input value="2" type="radio" name="view" autocomplete="off">
         </label>
         
       </div>
-      <button type="button" class="btn btn-primary"
+      <button type="button" class="btn btn-secondary btn-sm"
               id="next" onclick="nextView()">Next</button>
     </div>
     <script src="../static/blocks.js"></script>

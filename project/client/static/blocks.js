@@ -2,16 +2,16 @@ const svgns = "http://www.w3.org/2000/svg";
 
 
 // block is B_SIZE pixels square, with B_PADDING between blocks
-const B_SIZE    = 4;
+const B_SIZE    = 3;
 const B_PADDING = 2;
 const B_RATIO   = B_SIZE + B_PADDING
 
 const BS_PADDING = 15
-const BS_HEIGHT = 220
-const BS_WIDTH = 320
+const BS_HEIGHT = 230
+const BS_WIDTH = 370
 const BS_TOTAL = (BS_HEIGHT / B_RATIO) * (BS_WIDTH / B_RATIO)
-const B_SCALE = 1000000
-const GUN_SCALE = 100
+const B_SCALE = 100000
+const GUN_SCALE = 10
 
 
 // TODO
@@ -374,7 +374,6 @@ function makeCountries(cs) {
             y_pos += (BS_HEIGHT + BS_PADDING)
         }
     }
-    main()
 }
 
 function main() {
@@ -386,24 +385,41 @@ function main() {
 }
 
 function populationView() {
+    console.log("HEL L O")
     for (var i = 0; i < countries.length; i++) {
         countries[i].displayPopulation();
     }
 }
 
+function gunSuicideView() {
+    for (var i = 0; i < countries.length; i++) {
+        countries[i].colorByCategory();
+    }
+}
+
+function suicideGunOverlapView() {
+    for (var i = 0; i < countries.length; i++) {
+        countries[i].displayOverlap();
+    }    
+}
+
 function changeView(view) {
+    console.log("HELLOOOOO")
+    console.log(view)
     switch(view) {
-    case 1:
+    case "1":
+        console.log("HELLO")
         populationView();
         break;
-    case 2:
+    case "2":
         gunSuicideView();
         break;
-    case 2:
+    case "3":
+        suicideGunOverlapView();
         break;
-    case 2:
+    case "4":
         break;
-    case 2:
+    case "5":
         break;
     default:
         break;
@@ -411,18 +427,31 @@ function changeView(view) {
 }
 
 function nextView() {
+    var checked = $('input:radio[name=view]:checked').val();
+    console.log(checked)
+    var new_checked = parseInt(checked) + 1
+
+    $('input:radio[name=view]')[new_checked].checked = true;
+
+    var checked = $('input:radio[name=view]:checked').val();
+    console.log(checked)
+    
     var radio = $("#myButtons :input")
     var view;
-    console.log(radio)
     
     for(var i = 0; i < radio.length; i++){
         if(radio[i].checked){
-            view = radio[i].value;
+            view = radio[i].id;
         }
     }
-    console.log(view)
-    
-    changeView(view + 1)
+    /*
+    var newView = parseInt(view) + 1
+    var radiobtn = document.getElementById(String(newView));
+    console.log(radiobtn)
+    console.log(radiobtn.checked)
+    radiobtn.checked = true;
+    console.log(radiobtn.checked)
+    */
 }
 // here's where it all begins
 var countries = []
@@ -444,6 +473,6 @@ $.get( {url : "/country_data",
        });
 
 $("#myButtons :input").change(function() {
-    console.log(this.value); // points to the clicked input button
-    changeView(this.value);
+    console.log(this.id); // points to the clicked input button
+    changeView(this.id);
 });
