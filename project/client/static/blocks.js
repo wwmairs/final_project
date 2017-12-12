@@ -52,7 +52,7 @@ class Country {
         let c2 = {"name"  : "otherGunDeath",
                   "size"  : (this.gunDeaths - this.gunSuicide) / GUN_SCALE,
                   "color" : "blue"};
-        this.block.colorCategories([c1, c2]);
+        this.block.makeSquareWithCategories([c1, c2]);
         
     }
 }
@@ -102,6 +102,46 @@ class Blocks {
                 x++;
             }
             count++;
+        }
+
+    }
+
+    makeSquareWithCategories(categories) {
+        this.allOff();
+        let sum = 0;
+        categories.map(c => sum += c.size);
+        if (sum > this.capacity) {
+            throw "you're trying to color " + sum + " blocks, but only " + this.capacity + " blocks can fit";
+        }
+        let side = Math.floor(Math.sqrt(sum));
+        let count = 0;
+        let i = 0;
+        let localCount = 0;
+        for (var x = 0; x < side; x++) {
+            for (var y = 0; y < side; y++) {
+                this.bs[y + this.blocksTall * x].setColor(categories[i].color);
+                count++;
+                localCount++;
+                if (localCount >= categories[i].size) {
+                    i++;
+                    localCount = 0;
+                }
+            }
+        }
+        y = 0
+        while (count < sum) {
+            this.bs[y + this.blocksTall * x].setColor(categories[i].color);
+            y++;
+            if (y >= side) {
+                y = 0;
+                x++;
+            }
+            count++;
+            localCount++;
+            if (localCount >= categories[i].size) {
+                i++;
+                localCount = 0;
+            }
         }
 
     }
@@ -222,7 +262,7 @@ function makeCountries(cs) {
 
 function main() {
     for (var i = 0; i < countries.length; i++) {
-        // countries[i].displayPopulation()
+        // countries[i].displayPopulation();
         countries[i].colorByCategory();
     }
 }
