@@ -182,24 +182,6 @@ class Block {
 
 }
 
-// here's where it all begins
-var countries = []
-// create container to contain all things SVG
-let container = document.getElementById("container");
-let svg = document.createElementNS(svgns, "svg");
-svg.setAttribute("width", window.innerWidth);
-svg.setAttribute("height", 800);
-container.appendChild(svg);
-
-// get req to get country data.... this was truly the best way to do it
-$.get( {url : "/country_data",
-        success : function(data) {
-            parsedData = JSON.parse(data)
-            view_data = parsedData.countries;
-            makeCountries(view_data); // Pass data to a function
-        }
-       });
-
 function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
 
@@ -225,3 +207,21 @@ function main() {
         countries[i].colorByCategory();
     }
 }
+
+// here's where it all begins
+var countries = []
+// create container to contain all things SVG
+let container = document.getElementById("container");
+let svg = document.createElementNS(svgns, "svg");
+svg.setAttribute("width", window.innerWidth);
+svg.setAttribute("height", 800);
+container.appendChild(svg);
+
+// get req to get country data.... this was truly the best way to do it
+$.get( {url : "/country_data",
+        success : function(data) {
+            parsedData = JSON.parse(data)
+            view_data = parsedData.countries;
+            makeCountries(view_data); // Pass data to a function
+        }
+       });
