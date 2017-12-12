@@ -2,15 +2,16 @@ const svgns = "http://www.w3.org/2000/svg";
 
 
 // block is B_SIZE pixels square, with B_PADDING between blocks
-const B_SIZE    = 3;
+const B_SIZE    = 4;
 const B_PADDING = 2;
 const B_RATIO   = B_SIZE + B_PADDING
 
 const BS_PADDING = 15
 const BS_HEIGHT = 220
-const BS_WIDTH = 370
+const BS_WIDTH = 320
 const BS_TOTAL = (BS_HEIGHT / B_RATIO) * (BS_WIDTH / B_RATIO)
-const B_SCALE = 100000
+const B_SCALE = 1000000
+const GUN_SCALE = 100
 
 
 // TODO
@@ -46,11 +47,11 @@ class Country {
 
     colorByCategory() {
         let c1 = {"name"  : "gunSuicide",
-                  "size"  : this.gunSuicide / B_SCALE,
+                  "size"  : this.gunSuicide / GUN_SCALE,
                   "color" : "red"};
         let c2 = {"name"  : "otherGunDeath",
-                  "size"  : (this.gunDeaths - this.gunSuicide) / B_SCALE,
-                  "color" : "yellow"};
+                  "size"  : (this.gunDeaths - this.gunSuicide) / GUN_SCALE,
+                  "color" : "blue"};
         this.block.colorCategories([c1, c2]);
         
     }
