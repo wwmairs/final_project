@@ -110,6 +110,7 @@ class Blocks {
     //  size  : someNumberOfBlocks,
     //  color : "someColorStringOrMaybeHexValue"}
     colorCategories(categories) {
+        // TODO: make this color in a square!
         this.allOff();
         let sum = 0;
         categories.map(c => sum += c.size);
