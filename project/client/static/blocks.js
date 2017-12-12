@@ -2,14 +2,15 @@ const svgns = "http://www.w3.org/2000/svg";
 
 
 // block is B_SIZE pixels square, with B_PADDING between blocks
-const B_SIZE    = 4;
+const B_SIZE    = 3;
 const B_PADDING = 2;
 const B_RATIO   = B_SIZE + B_PADDING
 
-const BS_PADDING = 10
-const BS_HEIGHT = 150
-const BS_WIDTH = 250
+const BS_PADDING = 15
+const BS_HEIGHT = 220
+const BS_WIDTH = 370
 const BS_TOTAL = (BS_HEIGHT / B_RATIO) * (BS_WIDTH / B_RATIO)
+const B_SCALE = 100000
 
 
 // TODO
@@ -35,7 +36,12 @@ class Country {
         this.gunSuicide = data[3];
         this.totalSuicide = data[4];
         this.totalGuns = data[5]
-        this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT, BS_TOTAL)
+        this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT)
+    }
+
+    displayPopulation() {
+        var num_blocks = Math.floor(this.population / B_SCALE)
+        this.block.makeSquare(num_blocks)
     }
 }
 
@@ -53,6 +59,7 @@ class Blocks {
         this.blocksWide = Math.ceil(width / B_RATIO);
         this.blocksTall = Math.ceil(height / B_RATIO);
         this.capacity = this.blocksWide * this.blocksTall;
+        console.log(this.capacity)
         let counter = 0
         for (let i = 0; i < this.blocksWide; i++) {
             for (let j = 0; j < this.blocksTall; j++) {
@@ -156,6 +163,13 @@ class Block {
 
 // here's where it all begins
 var countries = []
+// create container to contain all things SVG
+let container = document.getElementById("container");
+let svg = document.createElementNS(svgns, "svg");
+svg.setAttribute("width", window.innerWidth);
+svg.setAttribute("height", 800);
+container.appendChild(svg);
+
 // get req to get country data.... this was truly the best way to do it
 $.get( {url : "/country_data",
         success : function(data) {
@@ -169,27 +183,24 @@ function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
 
     // starting point for drawing blocks
-    x_pos = 10
-    y_pos = 10
+    x_pos = 15
+    y_pos = 15
     for (var i = 0; i < cs.length; i++) {
         country = new Country(cs[i], x_pos, y_pos)
         countries.push(country)
-
         if (i % 2 == 0) {
             x_pos += (BS_WIDTH + BS_PADDING)
         } else {
-            x_pos = 10
+            x_pos = 15
             y_pos += (BS_HEIGHT + BS_PADDING)
         }
     }
-    console.log(countries)
+    main()
 }
 
-// end bullshit
-
-// create container to contain all things SVG
-let container = document.getElementById("container");
-let svg = document.createElementNS(svgns, "svg");
-svg.setAttribute("width", window.innerWidth);
-svg.setAttribute("height", 800);
-container.appendChild(svg);
+function main() {
+    for (var i = 0; i < countries.length; i++) {
+        console.log("heyo")
+        countries[i].displayPopulation()
+    }
+}
