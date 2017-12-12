@@ -45,6 +45,13 @@ class Country {
     }
 
     colorByCategory() {
+        c1 = {"name"  : "gunSuicide",
+              "size"  : this.gunSuicide,
+              "color" : "red"};
+        c2 = {"name"  : "otherGunDeath",
+              "size"  : this.gunDeaths - this.gunSuicide,
+              "color" : "yellow"};
+        this.block.colorCategories([c1, c2]);
         
     }
 }
@@ -89,6 +96,10 @@ class Blocks {
         while (count < numBlocks) {
             this.bs[y + this.blocksTall * x].turnOn();
             y++;
+            if (y >= side) {
+                y = 0;
+                x++;
+            }
             count++;
         }
 
@@ -210,5 +221,6 @@ function makeCountries(cs) {
 function main() {
     for (var i = 0; i < countries.length; i++) {
         countries[i].displayPopulation()
+        // countries[i].colorByCategory();
     }
 }
