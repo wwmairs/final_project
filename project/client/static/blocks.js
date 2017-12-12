@@ -62,13 +62,13 @@ class Country {
     displayOverlap() {
         let c1 = {"name"  : "gunDeath",
                   "size"  : this.gunDeaths / GUN_SCALE,
-                  "color" : "red"};
+                  "color" : "purple"};
         let c2 = {"name"  : "totalSuicide",
                   "size"  : (this.totalSuicide) / GUN_SCALE,
-                  "color" : "blue"};
+                  "color" : "orange"};
         let c3 = {"name"  : "gunSuicide",
                   "size"  : (this.gunSuicide) / GUN_SCALE,
-                  "color" : "black"};
+                  "color" : "red"};
         this.block.allOff();
         this.block.overlap([c1, c2, c3]);
     }
