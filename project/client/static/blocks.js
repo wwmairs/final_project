@@ -37,6 +37,10 @@ class Country {
         this.totalGuns = data[5]
         this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT, BS_TOTAL)
     }
+
+    colorByCategory() {
+        
+    }
 }
 
 class Blocks {
