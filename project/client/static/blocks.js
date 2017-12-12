@@ -247,13 +247,10 @@ class Block {
         this.c = _c;
         this.b.setAttribute("fill", this.c);
     }
-
-
 }
 
 function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
-
     // starting point for drawing blocks
     x_pos = 15
     y_pos = 15
@@ -277,6 +274,45 @@ function main() {
     }
 }
 
+function populationView() {
+    for (var i = 0; i < countries.length; i++) {
+        countries[i].displayPopulation();
+    }
+}
+
+function changeView(view) {
+    switch(view) {
+    case 1:
+        populationView();
+        break;
+    case 2:
+        gunSuicideView();
+        break;
+    case 2:
+        break;
+    case 2:
+        break;
+    case 2:
+        break;
+    default:
+        break;
+    }
+}
+
+function nextView() {
+    var radio = $("#myButtons :input")
+    var view;
+    console.log(radio)
+    
+    for(var i = 0; i < radio.length; i++){
+        if(radio[i].checked){
+            view = radio[i].value;
+        }
+    }
+    console.log(view)
+    
+    changeView(view + 1)
+}
 // here's where it all begins
 var countries = []
 // create container to contain all things SVG
@@ -289,8 +325,13 @@ container.appendChild(svg);
 // get req to get country data.... this was truly the best way to do it
 $.get( {url : "/country_data",
         success : function(data) {
-            parsedData = JSON.parse(data)
+            parsedData = JSON.parse(data);
             view_data = parsedData.countries;
             makeCountries(view_data); // Pass data to a function
         }
        });
+
+$("#myButtons :input").change(function() {
+    console.log(this.value); // points to the clicked input button
+    changeView(this.value);
+});
