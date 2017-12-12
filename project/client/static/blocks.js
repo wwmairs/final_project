@@ -43,6 +43,10 @@ class Country {
         var num_blocks = Math.floor(this.population / B_SCALE)
         this.block.makeSquare(num_blocks)
     }
+
+    colorByCategory() {
+        
+    }
 }
 
 class Blocks {
@@ -94,12 +98,19 @@ class Blocks {
     //  size  : someNumberOfBlocks,
     //  color : "someColorStringOrMaybeHexValue"}
     colorCategories(categories) {
+        this.allOff();
         let sum = 0;
-        cateries.map(c => sum += c.size);
+        categories.map(c => sum += c.size);
         if (sum > this.capacity) {
             throw "you're trying to color " + sum + " blocks, but only " + this.capacity + " blocks can fit";
         }
-
+        let count = 0;
+        categories.map(c => {
+            for (let n = 0; n < c.size; n++) {
+                this.bs[count].setColor(c.color);
+                count++;
+            }
+        });
     }
 
     allOff() {
