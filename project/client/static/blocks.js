@@ -407,19 +407,19 @@ function changeView(view) {
     console.log("HELLOOOOO")
     console.log(view)
     switch(view) {
-    case "1":
+    case "0":
         console.log("HELLO")
         populationView();
         break;
-    case "2":
+    case "1":
         gunSuicideView();
         break;
-    case "3":
+    case "2":
         suicideGunOverlapView();
         break;
-    case "4":
+    case "3":
         break;
-    case "5":
+    case "4":
         break;
     default:
         break;
@@ -473,6 +473,6 @@ $.get( {url : "/country_data",
        });
 
 $("#myButtons :input").change(function() {
-    console.log(this.id); // points to the clicked input button
-    changeView(this.id);
+    console.log(this.value); // points to the clicked input button
+    changeView(this.value);
 });
