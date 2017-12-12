@@ -52,7 +52,10 @@ class Country {
         let c2 = {"name"  : "otherGunDeath",
                   "size"  : (this.gunDeaths - this.gunSuicide) / GUN_SCALE,
                   "color" : "blue"};
-        this.block.makeSquareWithCategories([c1, c2]);
+        // this.block.makeSquareWithCategories([c1, c2]);
+        this.block.allOff();
+        this.block.makeSquareWithColor(this.gunDeaths / GUN_SCALE, "blue");
+        this.block.makeSquareWithColor(this.gunSuicide / GUN_SCALE, "red");
         
     }
 }
@@ -104,6 +107,31 @@ class Blocks {
             count++;
         }
 
+    }
+
+    makeSquareWithColor(numBlocks, color) {
+
+        if (numBlocks >= this.capacity) {
+            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
+        }
+        let side = Math.floor(Math.sqrt(numBlocks));
+        let count = 0;
+        for (var x = 0; x < side; x++) {
+            for (var y = 0; y < side; y++) {
+                this.bs[y + this.blocksTall * x].setColor(color);
+                count++;
+            }
+        }
+        y = 0
+        while (count < numBlocks) {
+            this.bs[y + this.blocksTall * x].setColor(color);
+            y++;
+            if (y >= side) {
+                y = 0;
+                x++;
+            }
+            count++;
+        }
     }
 
     makeSquareWithCategories(categories) {
