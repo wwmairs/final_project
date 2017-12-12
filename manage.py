@@ -39,51 +39,48 @@ def drop_db():
 def create_data():
     americuh = Country(
         name='United States',
-        pop=323100000,
+        pop=317900000,
         gun_deaths=33636,
 	gun_suicides=21175,
-	suicides=44193,
-        guns=357000000)
+	suicides=41149,
+        guns=285000000)
     fronce = Country(
         name='France',
-        pop=66900000,
-        gun_deaths=1800,
-	gun_suicides=1446,
+        pop=66600000,
+        gun_deaths=1856,
+	gun_suicides=1335,
 	suicides=9695,
-        guns=10000000)
+        guns=12000000)
     yermany = Country(
         name='Germany',
         pop=81690000,
-        gun_deaths=820,
+        gun_deaths=926,
 	gun_suicides=719,
-	suicides=44193,
-        guns=357000000)
+	suicides=14517,
+        guns=25400000)
     lawstralia = Country(
         name='Australia',
-        pop=323100000,
-        gun_deaths=33636,
-	gun_suicides=21175,
-	suicides=44193,
-        guns=357000000)
+        pop=23790000,
+        gun_deaths=211,
+	gun_suicides=177,
+	suicides=2568,
+        guns=3010000)
     canaduh = Country(
         name='Canada',
-        pop=323100000,
-        gun_deaths=33636,
-	gun_suicides=21175,
-	suicides=44193,
-        guns=357000000)
+        pop=35850000,
+        gun_deaths=698,
+	gun_suicides=518,
+	suicides=3726,
+        guns=8919328)
     angland = Country(
         name='United Kingdom',
-        pop=323100000,
-        gun_deaths=33636,
-	gun_suicides=21175,
-	suicides=44193,
-        guns=357000000)
+        pop=65130000,
+        gun_deaths=144,
+	gun_suicides=106,
+	suicides=6045,
+        guns=2403186)
 
-
-
-
-    for country in [americuh, fronce, americuss, american, americant, americunt]:
+    for country in [americuh, fronce, yermany, lawstralia, canaduh, angland]:
         db.session.add(country)
 
     db.session.commit()
