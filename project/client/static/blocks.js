@@ -45,12 +45,12 @@ class Country {
     }
 
     colorByCategory() {
-        c1 = {"name"  : "gunSuicide",
-              "size"  : this.gunSuicide,
-              "color" : "red"};
-        c2 = {"name"  : "otherGunDeath",
-              "size"  : this.gunDeaths - this.gunSuicide,
-              "color" : "yellow"};
+        let c1 = {"name"  : "gunSuicide",
+                  "size"  : this.gunSuicide / B_SCALE,
+                  "color" : "red"};
+        let c2 = {"name"  : "otherGunDeath",
+                  "size"  : (this.gunDeaths - this.gunSuicide) / B_SCALE,
+                  "color" : "yellow"};
         this.block.colorCategories([c1, c2]);
         
     }
@@ -220,7 +220,7 @@ function makeCountries(cs) {
 
 function main() {
     for (var i = 0; i < countries.length; i++) {
-        countries[i].displayPopulation()
-        // countries[i].colorByCategory();
+        // countries[i].displayPopulation()
+        countries[i].colorByCategory();
     }
 }
