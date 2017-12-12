@@ -476,3 +476,8 @@ $("#myButtons :input").change(function() {
     console.log(this.value); // points to the clicked input button
     changeView(this.value);
 });
+
+$("#next").click(function () {
+    $('input:radio[name=view]:nth(1)').attr('checked',true);
+    //$('input:radio[name=sex]')[0].checked = true;
+});
