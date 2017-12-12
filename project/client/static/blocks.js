@@ -58,6 +58,20 @@ class Country {
         this.block.makeSquareWithColor(this.gunSuicide / GUN_SCALE, "red");
         
     }
+
+    displayOverlap() {
+        let c1 = {"name"  : "gunDeath",
+                  "size"  : this.gunDeaths / GUN_SCALE,
+                  "color" : "purple"};
+        let c2 = {"name"  : "totalSuicide",
+                  "size"  : (this.totalSuicide) / GUN_SCALE,
+                  "color" : "orange"};
+        let c3 = {"name"  : "gunSuicide",
+                  "size"  : (this.gunSuicide) / GUN_SCALE,
+                  "color" : "red"};
+        this.block.allOff();
+        this.block.overlap([c1, c2, c3]);
+    }
 }
 
 class Blocks {
@@ -81,6 +95,19 @@ class Blocks {
                 counter++;
             }
         }
+    }
+    // expects a list of 3 categories that look like this: 
+    // {name  : "someName",
+    //  size  : someNumberOfBlocks,
+    //  color : "someColorStringOrMaybeHexValue"}
+    // where the first two elements are the two categories that overlap,
+    // and the third element is the overlapping section
+    overlap(cs) {
+        let firstSide = this.makeSquareWithColorXY(cs[0].size, cs[0].color, 0, 0);
+        console.log(firstSide);
+        let diff = Math.floor(Math.sqrt(cs[2].size));
+        console.log(diff);
+        this.makeOverlappingSquare(cs[1].size, cs[1].color, cs[2].color, firstSide - diff, firstSide - diff);
     }
 
     makeSquare(numBlocks) {
@@ -134,6 +161,84 @@ class Blocks {
         }
     }
 
+    makeSquareWithColorXY(numBlocks, color, startX, startY) {
+
+        if (numBlocks >= this.capacity) {
+            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
+        }
+        let side = Math.floor(Math.sqrt(numBlocks));
+        let count = 0;
+        for (var x = 0; x < side; x++) {
+            for (var y = 0; y < side; y++) {
+                try {
+                    this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+                }
+                catch(err) {
+                    console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+                }
+                count++;
+            }
+        }
+        y = 0
+        while (count < numBlocks) {
+            try {
+                this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+            }
+            catch(err) {
+                console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+            }
+            y++;
+            if (y >= side) {
+                y = 0;
+                x++;
+            }
+            count++;
+        }
+        return side;
+    }
+    makeOverlappingSquare(numBlocks, color, overlapColor, startX, startY) {
+        if (numBlocks >= this.capacity) {
+            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
+        }
+        let side = Math.floor(Math.sqrt(numBlocks));
+        let count = 0;
+        for (var x = 0; x < side; x++) {
+            for (var y = 0; y < side; y++) {
+                try {
+                    if (this.bs[(y + startY) + this.blocksTall * (x + startX)].on) {
+                        // it's overlapping
+                        this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(overlapColor);
+                    } else {
+                        this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+                    }
+                }
+                catch(err) {
+                    console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+                }
+                count++;
+            }
+        }
+        y = 0
+        while (count < numBlocks) {
+            try {
+                this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+            }
+            catch(err) {
+                console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+            }
+            y++;
+            if (y >= side) {
+                y = 0;
+                x++;
+            }
+            count++;
+        }
+        return side;
+    }
+    // expects a list of 3 categories that look like this: 
+    // {name  : "someName",
+    //  size  : someNumberOfBlocks,
+    //  color : "someColorStringOrMaybeHexValue"}
     makeSquareWithCategories(categories) {
         this.allOff();
         let sum = 0;
@@ -244,6 +349,11 @@ class Block {
     }
 
     setColor(_c) {
+        if (_c == "white") {
+            this.on = false;
+        } else {
+            this.on = true;
+        }
         this.c = _c;
         this.b.setAttribute("fill", this.c);
     }
@@ -270,7 +380,8 @@ function makeCountries(cs) {
 function main() {
     for (var i = 0; i < countries.length; i++) {
         // countries[i].displayPopulation();
-        countries[i].colorByCategory();
+        // countries[i].colorByCategory();
+        countries[i].displayOverlap();
     }
 }
 
@@ -318,9 +429,10 @@ var countries = []
 // create container to contain all things SVG
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
-svg.setAttribute("width", document.getElementById("container").innerWidth);
+svg.setAttribute("width", document.getElementById("container").offsetWidth);
 svg.setAttribute("height", 800);
 container.appendChild(svg);
+
 
 // get req to get country data.... this was truly the best way to do it
 $.get( {url : "/country_data",
