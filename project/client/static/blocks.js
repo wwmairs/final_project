@@ -404,39 +404,43 @@ function suicideGunOverlapView() {
 }
 
 function changeView(view) {
-    console.log("HELLOOOOO")
-    console.log(view)
+    // console.log("in changeView, view = ", view);
+    // console.log("view is this type: ", typeof(view));
     switch(view) {
-    case "0":
-        console.log("HELLO")
-        populationView();
-        break;
-    case "1":
-        gunSuicideView();
-        break;
-    case "2":
-        suicideGunOverlapView();
-        break;
-    case "3":
-        break;
-    case "4":
-        break;
-    default:
-        break;
+        case 0:
+            // console.log("trying to change to populationView");
+            populationView();
+            break;
+        case 1:
+            // console.log("trying to change to gunSuicideView");
+            gunSuicideView();
+            break;
+        case 2:
+            // console.log("trying to change to suicideGunOverlapView");
+            suicideGunOverlapView();
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        default:
+            break;
     }
 }
 
 function nextView() {
+    console.log("in nextView");
     var checked = $('input:radio[name=view]:checked').val();
-    console.log(checked)
-    var new_checked = parseInt(checked) + 1
-
+    console.log("checked button val before update", checked);
+    var new_checked = parseInt(checked) + 1;
+    changeView(new_checked);
+    // $('input:radio[name=view]:checked').checked = false;
     $('input:radio[name=view]')[new_checked].checked = true;
 
     var checked = $('input:radio[name=view]:checked').val();
-    console.log(checked)
+    console.log("checked button val after update", checked);
     
-    var radio = $("#myButtons :input")
+    var radio = $("#myButtons :input");
     var view;
     
     for(var i = 0; i < radio.length; i++){
@@ -444,15 +448,10 @@ function nextView() {
             view = radio[i].id;
         }
     }
-    /*
-    var newView = parseInt(view) + 1
-    var radiobtn = document.getElementById(String(newView));
-    console.log(radiobtn)
-    console.log(radiobtn.checked)
-    radiobtn.checked = true;
-    console.log(radiobtn.checked)
-    */
+
+
 }
+
 // here's where it all begins
 var countries = []
 // create container to contain all things SVG
@@ -478,6 +477,7 @@ $("#myButtons :input").change(function() {
 });
 
 $("#next").click(function () {
+    nextView();
     $('input:radio[name=view]:nth(1)').attr('checked',true);
     //$('input:radio[name=sex]')[0].checked = true;
 });
