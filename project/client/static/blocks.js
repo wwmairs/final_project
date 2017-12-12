@@ -318,7 +318,7 @@ var countries = []
 // create container to contain all things SVG
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
-svg.setAttribute("width", window.innerWidth);
+svg.setAttribute("width", document.getElementById("container").innerWidth);
 svg.setAttribute("height", 800);
 container.appendChild(svg);
 
