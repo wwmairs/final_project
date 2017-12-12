@@ -107,7 +107,7 @@ class Blocks {
         console.log(firstSide);
         let diff = Math.floor(Math.sqrt(cs[2].size));
         console.log(diff);
-        this.makeSquareWithColorXY(cs[1].size, cs[1].color, firstSide - diff, firstSide - diff);
+        this.makeOverlappingSquare(cs[1].size, cs[1].color, cs[2].color, firstSide - diff, firstSide - diff);
     }
 
     makeSquare(numBlocks) {
@@ -196,7 +196,49 @@ class Blocks {
         }
         return side;
     }
-
+    makeOverlappingSquare(numBlocks, color, overlapColor, startX, startY) {
+        if (numBlocks >= this.capacity) {
+            throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
+        }
+        let side = Math.floor(Math.sqrt(numBlocks));
+        let count = 0;
+        for (var x = 0; x < side; x++) {
+            for (var y = 0; y < side; y++) {
+                try {
+                    if (this.bs[(y + startY) + this.blocksTall * (x + startX)].on) {
+                        // it's overlapping
+                        this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(overlapColor);
+                    } else {
+                        this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+                    }
+                }
+                catch(err) {
+                    console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+                }
+                count++;
+            }
+        }
+        y = 0
+        while (count < numBlocks) {
+            try {
+                this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+            }
+            catch(err) {
+                console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+            }
+            y++;
+            if (y >= side) {
+                y = 0;
+                x++;
+            }
+            count++;
+        }
+        return side;
+    }
+    // expects a list of 3 categories that look like this: 
+    // {name  : "someName",
+    //  size  : someNumberOfBlocks,
+    //  color : "someColorStringOrMaybeHexValue"}
     makeSquareWithCategories(categories) {
         this.allOff();
         let sum = 0;
@@ -307,6 +349,11 @@ class Block {
     }
 
     setColor(_c) {
+        if (_c == "white") {
+            this.on = false;
+        } else {
+            this.on = true;
+        }
         this.c = _c;
         this.b.setAttribute("fill", this.c);
     }
