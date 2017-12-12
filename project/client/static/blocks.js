@@ -59,7 +59,6 @@ class Blocks {
         this.blocksWide = Math.ceil(width / B_RATIO);
         this.blocksTall = Math.ceil(height / B_RATIO);
         this.capacity = this.blocksWide * this.blocksTall;
-        console.log(this.capacity)
         let counter = 0
         for (let i = 0; i < this.blocksWide; i++) {
             for (let j = 0; j < this.blocksTall; j++) {
@@ -75,7 +74,6 @@ class Blocks {
             throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
         }
         let side = Math.floor(Math.sqrt(numBlocks));
-        console.log(side);
         let count = 0;
         for (var x = 0; x < side; x++) {
             for (var y = 0; y < side; y++) {
@@ -200,7 +198,6 @@ function makeCountries(cs) {
 
 function main() {
     for (var i = 0; i < countries.length; i++) {
-        console.log("heyo")
         countries[i].displayPopulation()
     }
 }
