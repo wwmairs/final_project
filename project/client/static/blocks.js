@@ -60,8 +60,17 @@ class Country {
     }
 
     displayOverlap() {
+        let c1 = {"name"  : "gunDeath",
+                  "size"  : this.gunDeaths / GUN_SCALE,
+                  "color" : "red"};
+        let c2 = {"name"  : "totalSuicide",
+                  "size"  : (this.totalSuicide) / GUN_SCALE,
+                  "color" : "blue"};
+        let c3 = {"name"  : "gunSuicide",
+                  "size"  : (this.gunSuicide) / GUN_SCALE,
+                  "color" : "black"};
         this.block.allOff();
-        this.block.makeSquareWithColorXY(this.gunDeaths / GUN_SCALE, "blue");
+        this.block.overlap([c1, c2, c3]);
     }
 }
 
@@ -86,6 +95,19 @@ class Blocks {
                 counter++;
             }
         }
+    }
+    // expects a list of 3 categories that look like this: 
+    // {name  : "someName",
+    //  size  : someNumberOfBlocks,
+    //  color : "someColorStringOrMaybeHexValue"}
+    // where the first two elements are the two categories that overlap,
+    // and the third element is the overlapping section
+    overlap(cs) {
+        let firstSide = this.makeSquareWithColorXY(cs[0].size, cs[0].color, 0, 0);
+        console.log(firstSide);
+        let diff = Math.floor(Math.sqrt(cs[2].size));
+        console.log(diff);
+        this.makeSquareWithColorXY(cs[1].size, cs[1].color, firstSide - diff, firstSide - diff);
     }
 
     makeSquare(numBlocks) {
@@ -148,13 +170,23 @@ class Blocks {
         let count = 0;
         for (var x = 0; x < side; x++) {
             for (var y = 0; y < side; y++) {
-                this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+                try {
+                    this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+                }
+                catch(err) {
+                    console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+                }
                 count++;
             }
         }
         y = 0
         while (count < numBlocks) {
-            this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+            try {
+                this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
+            }
+            catch(err) {
+                console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+            }
             y++;
             if (y >= side) {
                 y = 0;
@@ -162,6 +194,7 @@ class Blocks {
             }
             count++;
         }
+        return side;
     }
 
     makeSquareWithCategories(categories) {
