@@ -404,55 +404,48 @@ function suicideGunOverlapView() {
 }
 
 function changeView(view) {
-    console.log("HELLOOOOO")
-    console.log(view)
+    console.log("in changeView, view = ", view);
+    console.log("view is this type: ", typeof(view));
     switch(view) {
-    case "0":
-        console.log("HELLO")
-        populationView();
-        break;
-    case "1":
-        gunSuicideView();
-        break;
-    case "2":
-        suicideGunOverlapView();
-        break;
-    case "3":
-        break;
-    case "4":
-        break;
-    default:
-        break;
+        case 0:
+            // console.log("trying to change to populationView");
+            populationView();
+            break;
+        case 1:
+            // console.log("trying to change to gunSuicideView");
+            gunSuicideView();
+            break;
+        case 2:
+            // console.log("trying to change to suicideGunOverlapView");
+            suicideGunOverlapView();
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        default:
+            break;
     }
 }
 
 function nextView() {
-    var checked = $('input:radio[name=view]:checked').val();
-    console.log(checked)
-    var new_checked = parseInt(checked) + 1
-
-    $('input:radio[name=view]')[new_checked].checked = true;
-
-    var checked = $('input:radio[name=view]:checked').val();
-    console.log(checked)
-    
-    var radio = $("#myButtons :input")
-    var view;
-    
-    for(var i = 0; i < radio.length; i++){
-        if(radio[i].checked){
-            view = radio[i].id;
-        }
-    }
-    /*
-    var newView = parseInt(view) + 1
-    var radiobtn = document.getElementById(String(newView));
-    console.log(radiobtn)
-    console.log(radiobtn.checked)
-    radiobtn.checked = true;
-    console.log(radiobtn.checked)
-    */
+    var selectedButton = $(".btn-default.active");
+    selectedButton.removeClass("active");
+    nextButton(selectedButton).classList.add("active");
+    // get val of child of selectedButton, send that to changeView
+    var next = $(".btn-default.active");
+    changeView(parseInt(next.children()[0].value));
 }
+
+function nextButton(currentButton) {
+    let next = currentButton.next();
+    if (next.length == 0) {
+        return currentButton.siblings()[0];
+    } else {
+        return next[0];
+    }
+}
+
 // here's where it all begins
 var countries = []
 // create container to contain all things SVG
@@ -478,6 +471,7 @@ $("#myButtons :input").change(function() {
 });
 
 $("#next").click(function () {
+    nextView();
     $('input:radio[name=view]:nth(1)').attr('checked',true);
     //$('input:radio[name=sex]')[0].checked = true;
 });
