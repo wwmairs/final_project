@@ -615,3 +615,6 @@ $("#next").click(function () {
     $('input:radio[name=view]:nth(1)').attr('checked',true);
     //$('input:radio[name=sex]')[0].checked = true;
 });
+
+
+// TODO: update scale when necessary
