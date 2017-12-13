@@ -43,8 +43,12 @@ class Country {
         this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT, B_SIZE_POP, B_PADDING_POP)
     }
 
+    turnOff() {
+        this.block.allOff();
+    }
+
     displayBlah() {
-        this.block.allOn()
+        this.block.allOn();
     }
 
     updateBlocks(size, padding) {
@@ -57,6 +61,11 @@ class Country {
         var numBlocks = Math.floor(this.population / POP_SCALE)
         this.block.makeSquare(numBlocks)
         
+    }
+
+    displayPopulationPortion(val) {
+        var portion = val / POP_SCALE
+        this.block.makeSquare(portion)
     }
 
     colorByCategory() {
@@ -400,11 +409,12 @@ class Block {
 
     turnOff() {
         this.on = false;
-        this.b.setAttribute("fill", "white");
+        this.b.setAttribute("opacity", 0);
     }
     turnOn() {
         this.on = true;
         this.b.setAttribute("fill", "black");
+        this.b.setAttribute("opacity", 100);
     }
 
     toggle() {
@@ -416,6 +426,7 @@ class Block {
         if (_c == "white") {
             this.on = false;
         } else {
+            this.b.setAttribute("opacity", 100)
             this.on = true;
         }
         this.c = _c;
@@ -451,6 +462,19 @@ function populationView() {
     for (var i = 0; i < countries.length; i++) {
         countries[i].displayPopulation();
     }
+}
+
+function populationPortionView(val) {
+    for (var i = 0; i < countries.length; i++) {
+        countries[i].displayPopulationPortion(val);
+    }    
+}
+
+function scaleView(val) {
+    for (var i = 0; i < countries.length; i++) {
+        countries[i].turnOff(val);
+    }
+    b.allOn()
 }
 
 function per5Mil(value, population) {
@@ -500,38 +524,44 @@ function gunDeathsWithoutSuicdePer5Mil() {
 // 8. show gun deaths that AREN'T suicides
 
 function changeView(view) {
+    b.allOff()
     // console.log("in changeView, view = ", view);
     // console.log("view is this type: ", typeof(view));
     switch(view) {
-        case 0:
-            console.log("trying to change to blahView");
-            blahView();
-            break;
-        case 1:
-            console.log("trying to change to populationView");
-            populationView();
-            break;
-        case 2:
-            console.log("trying to change to suicideGunOverlapView");
-            break;
-        case 3:
-            console.log("trying to change to gunDeathsPer5Mil");
-            gunDeathsPer5Mil();
-            break;
-        case 4:
-            console.log("trying to change to gunDeathsWithSuicidesPer5Mil");
-            gunDeathsWithSuicidesPer5Mil();
-            break;
-        case 5:
-            console.log("trying to change to gunDeathSuicideOverlapPer5Mil");
-            gunDeathSuicideOverlapPer5Mil();
-            break;
-        case 6: console.log("trying to change to gunDeathsWithoutSuicdePer5Mil");
-            gunDeathsWithoutSuicdePer5Mil();
-            break;
-        default:
-            console.log("default case in changeView switch\nwe shouldn't be here");
-            break;
+    case 0:
+        console.log("trying to change to blahView");
+        blahView();
+        break;
+    case 1:
+        console.log("trying to change to populationView");
+        populationView();
+        break;
+    case 2:
+        console.log("trying to change to populationPortionView");
+        populationPortionView(5000000);
+        break;
+    case 3:
+        console.log("trying to change to scaleView");        
+        scaleView(5000000);
+        break;
+    case 4:
+        console.log("trying to change to gunDeathsPer5Mil");
+        gunDeathsPer5Mil();
+        break;
+    case 5:
+        console.log("trying to change to gunDeathsWithSuicidesPer5Mil");
+        gunDeathsWithSuicidesPer5Mil();
+        break;
+    case 6:
+        console.log("trying to change to gunDeathSuicideOverlapPer5Mil");
+        gunDeathSuicideOverlapPer5Mil();
+        break;
+    case 7: console.log("trying to change to gunDeathsWithoutSuicdePer5Mil");
+        gunDeathsWithoutSuicdePer5Mil();
+        break;
+    default:
+        console.log("default case in changeView switch\nwe shouldn't be here");
+        break;
     }
 }
 
@@ -560,6 +590,11 @@ let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", document.getElementById("container").offsetWidth);
 svg.setAttribute("height", 800);
 container.appendChild(svg);
+
+var width = svg.getAttribute("width")
+var height = svg.getAttribute("height")
+var b = new Blocks (15, 15, width, height, B_SIZE_POP, B_PADDING_POP)
+b.allOff()
 
 // get req to get country data
 $.get( {url : "/country_data",
