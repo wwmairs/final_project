@@ -52,6 +52,7 @@ class Country {
     }
 
     displayPopulation() {
+        this.block.allOff();
         this.updateBlocks(B_SIZE_POP, B_PADDING_POP)
         var numBlocks = Math.floor(this.population / POP_SCALE)
         this.block.makeSquare(numBlocks)
@@ -173,13 +174,13 @@ class Blocks {
         let count = 0;
         for (var x = 0; x < side; x++) {
             for (var y = 0; y < side; y++) {
-                this.bs[y + this.blocksTall * x].turnOn();
+                this.bs[y + this.blocksTall * x].setColor("black");
                 count++;
             }
         }
         y = 0
         while (count < numBlocks) {
-            this.bs[y + this.blocksTall * x].turnOn();
+            this.bs[y + this.blocksTall * x].setColor("black");
             y++;
             if (y >= side) {
                 y = 0;
