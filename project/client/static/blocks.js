@@ -2,13 +2,13 @@ const svgns = "http://www.w3.org/2000/svg";
 
 
 // block is B_SIZE pixels square, with B_PADDING between blocks
-const B_SIZE    = 3;
+const B_SIZE    = 4;
 const B_PADDING = 2;
 const B_RATIO   = B_SIZE + B_PADDING
 
 const BS_PADDING = 15
-const BS_HEIGHT = 230
-const BS_WIDTH = 370
+const BS_HEIGHT = 235
+const BS_WIDTH = 300
 const BS_TOTAL = (BS_HEIGHT / B_RATIO) * (BS_WIDTH / B_RATIO)
 const B_SCALE = 100000
 const GUN_SCALE = 10
@@ -402,6 +402,15 @@ function suicideGunOverlapView() {
         countries[i].displayOverlap();
     }    
 }
+
+// views that we need
+// 1. pop of all countries
+// 2. separate countries, display pop of each
+// 3. turn into 100,000, so they're all the same size
+// 4. show gun deaths per overlaid on top of 100,000
+// 5. only show gun deaths
+// 6. show percent of gun deaths that are suicides
+// 7. overlap gun deaths and suicides
 
 function changeView(view) {
     console.log("in changeView, view = ", view);
