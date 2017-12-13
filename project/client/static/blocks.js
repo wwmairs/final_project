@@ -16,6 +16,14 @@ const BS_HEIGHT = 235
 const BS_WIDTH = 300
 const GUN_SCALE = 10
 
+const MESSAGES = ["this is our final project",
+                  "here are the populations of each country",
+                  "something different will happen here soon",
+                  "woah, changed scale on ya; this is the number of gun deaths per 5 million people",
+                  "oh shit, that blue stuff is all the gun deaths caused by suicide",
+                  "let's look at the intersection between gun deaths and suicide",
+                  "now the red is all gun deaths whose cause is not suicide",
+                  "these are out of order"]
 
 // TODO
 // extend Blocks with:
@@ -125,6 +133,13 @@ class Country {
         this.block.makeSquareWithColor(per5Mil(this.gunDeaths - this.gunSuicide,
                                                this.population),
                                        "red");
+    }
+}
+
+class Scale {
+    constructor(container, scale) {
+        this.b = new Block(scaleSvg, B_SIZE_POP, 10, 10, "black");
+        $("#scale-svg").next().html(scale);
     }
 }
 
@@ -437,16 +452,19 @@ class Block {
 function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
     // starting point for drawing blocks
-    x_pos = 15
-    y_pos = 15
+    startY = BS_PADDING;
+    startX = BS_PADDING;
+    
+    x_pos = startX;
+    y_pos = startY;
     for (var i = 0; i < cs.length; i++) {
         country = new Country(cs[i], x_pos, y_pos)
         countries.push(country)
-        if (i % 2 == 0) {
-            x_pos += (BS_WIDTH + BS_PADDING)
+        if ((i + 1) % 3 == 0) {
+            x_pos = startX;
+            y_pos += (BS_HEIGHT + BS_PADDING);
         } else {
-            x_pos = 15
-            y_pos += (BS_HEIGHT + BS_PADDING)
+            x_pos += (BS_WIDTH + BS_PADDING);
         }
     }
 }
@@ -501,7 +519,7 @@ function gunDeathSuicideOverlapPer5Mil() {
         countries[i].displayGunDeathSuicideOverlapPer5Mil();
         // draw overlapping gun deaths and suicides
     }   
-    // countries[5].displayGunDeathSuicideOverlapPer5Mil(); 
+
 }
 
 function gunDeathsWithoutSuicdePer5Mil() {
@@ -510,6 +528,10 @@ function gunDeathsWithoutSuicdePer5Mil() {
         countries[i].displayGunDeathsWithoutSuicidePer5Mil();
         // draw overlapping gun deaths and suicides
     } 
+}
+
+function displayMessage(index) {
+    $("#message").html(MESSAGES[index]);
 }
 
 // views that we need
@@ -533,33 +555,41 @@ function changeView(view) {
     case 0:
         console.log("trying to change to blahView");
         blahView();
+        displayMessage(0);
         break;
     case 1:
         console.log("trying to change to populationView");
         populationView();
+        displayMessage(1);
         break;
     case 2:
         console.log("trying to change to populationPortionView");
         populationPortionView(5000000);
+        displayMessage(2);
         break;
     case 3:
         console.log("trying to change to scaleView");        
         scaleView(5000000);
+        displayMessage(3);
         break;
     case 4:
         console.log("trying to change to gunDeathsPer5Mil");
         gunDeathsPer5Mil();
+        displayMessage(4);
         break;
     case 5:
         console.log("trying to change to gunDeathsWithSuicidesPer5Mil");
         gunDeathsWithSuicidesPer5Mil();
+        displayMessage(5);
         break;
     case 6:
         console.log("trying to change to gunDeathSuicideOverlapPer5Mil");
         gunDeathSuicideOverlapPer5Mil();
+        displayMessage(6);
         break;
     case 7: console.log("trying to change to gunDeathsWithoutSuicdePer5Mil");
         gunDeathsWithoutSuicdePer5Mil();
+        displayMessage(7);
         break;
     default:
         console.log("default case in changeView switch\nwe shouldn't be here");
@@ -589,9 +619,15 @@ function nextButton(currentButton) {
 var countries = []
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
-svg.setAttribute("width", document.getElementById("container").offsetWidth);
-svg.setAttribute("height", 800);
+svg.setAttribute("width", ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING);
+svg.setAttribute("height", ((BS_HEIGHT + BS_PADDING) * 2) + BS_PADDING);
 container.appendChild(svg);
+let scaleContainer = document.getElementById("scale-svg");
+let scaleSvg = document.createElementNS(svgns, "svg");
+scaleSvg.setAttribute("width", 20);
+scaleSvg.setAttribute("height", 20);
+scaleContainer.appendChild(scaleSvg);
+let scale = new Scale(scaleContainer, POP_SCALE);
 
 var width = svg.getAttribute("width")
 var height = svg.getAttribute("height")
@@ -604,6 +640,7 @@ $.get( {url : "/country_data",
             parsedData = JSON.parse(data);
             view_data = parsedData.countries;
             makeCountries(view_data); // Pass data to a function
+            changeView(0);
         }
        });
 
@@ -616,3 +653,6 @@ $("#next").click(function () {
     $('input:radio[name=view]:nth(1)').attr('checked',true);
     //$('input:radio[name=sex]')[0].checked = true;
 });
+
+
+// TODO: update scale when necessary
