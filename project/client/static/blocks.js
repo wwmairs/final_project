@@ -59,18 +59,49 @@ class Country {
         
     }
 
-    displayOverlap() {
+    displayGunDeathsPer5Mil() {
+        // clear screen
+        this.block.allOff();
+        // draw square for gun deaths (some color, gun deaths per 100,000)
+        this.block.makeSquareWithColor(per5Mil(this.gunDeaths,
+                                               this.population),
+                                       "red");
+    }
+
+    displayGunDeathsWithSuicidesPer5Mil() {
+        // clear screen
+        this.block.allOff();
+        // draw square for gun deaths (some color, gun deaths per 100,000)
+        this.block.makeSquareWithColor(per5Mil(this.gunDeaths,
+                                               this.population),
+                                       "red");
+        this.block.makeSquareWithColor(per5Mil(this.gunSuicide,
+                                               this.population),
+                                       "blue");
+    }
+
+    displayGunDeathSuicideOverlapPer5Mil() {
         let c1 = {"name"  : "gunDeath",
-                  "size"  : this.gunDeaths / GUN_SCALE,
-                  "color" : "purple"};
-        let c2 = {"name"  : "totalSuicide",
-                  "size"  : (this.totalSuicide) / GUN_SCALE,
-                  "color" : "orange"};
-        let c3 = {"name"  : "gunSuicide",
-                  "size"  : (this.gunSuicide) / GUN_SCALE,
+                  "size"  : per5Mil(this.gunDeaths, this.population),
                   "color" : "red"};
+        let c2 = {"name"  : "totalSuicide",
+                  "size"  : per5Mil(this.totalSuicide, this.population),
+                  "color" : "blue"};
+        let c3 = {"name"  : "gunSuicide",
+                  "size"  : per5Mil(this.gunSuicide, this.population),
+                  "color" : "purple"};
         this.block.allOff();
         this.block.overlap([c1, c2, c3]);
+    }
+
+    displayGunDeathsWithoutSuicidePer5Mil() {
+        this.block.allOff();
+        this.block.makeSquareWithColor(per5Mil(this.gunDeaths,
+                                               this.population),
+                                       "grey");
+        this.block.makeSquareWithColor(per5Mil(this.gunDeaths - this.gunSuicide,
+                                               this.population),
+                                       "red");
     }
 }
 
@@ -104,10 +135,10 @@ class Blocks {
     // and the third element is the overlapping section
     overlap(cs) {
         let firstSide = this.makeSquareWithColorXY(cs[0].size, cs[0].color, 0, 0);
-        console.log(firstSide);
+        console.log("first side: ", firstSide);
+        console.log("overlap should have ", cs[2].size, " blocks");
         let diff = Math.floor(Math.sqrt(cs[2].size));
-        console.log(diff);
-        this.makeOverlappingSquare(cs[1].size, cs[1].color, cs[2].color, firstSide - diff, firstSide - diff);
+        this.makeOverlappingSquare(cs[1].size, cs[1].color, cs[2].color, firstSide - diff + 1, firstSide - diff + 1);
     }
 
     makeSquare(numBlocks) {
@@ -384,55 +415,82 @@ function main() {
     }
 }
 
-function populationView() {
-    console.log("HEL L O")
-    for (var i = 0; i < countries.length; i++) {
-        countries[i].displayPopulation();
-    }
+function per5Mil(value, population) {
+    // is ceiling wrong here? I'm not sure -w
+    let ratio = population / 5000000;
+    return Math.ceil(value / ratio);
 }
 
-function gunSuicideView() {
+function gunDeathsPer5Mil() {
     for (var i = 0; i < countries.length; i++) {
-        countries[i].colorByCategory();
-    }
-}
-
-function suicideGunOverlapView() {
-    for (var i = 0; i < countries.length; i++) {
-        countries[i].displayOverlap();
+        countries[i].displayGunDeathsPer5Mil();
     }    
+}
+function gunDeathsWithSuicidesPer5Mil() {
+    for (var i = 0; i < countries.length; i++) {
+        countries[i].displayGunDeathsWithSuicidesPer5Mil();
+    }    
+}
+function gunDeathSuicideOverlapPer5Mil() {
+    for (var i = 0; i < countries.length; i++) {
+        // clear screen
+        countries[i].displayGunDeathSuicideOverlapPer5Mil();
+        // draw overlapping gun deaths and suicides
+    }   
+    // countries[5].displayGunDeathSuicideOverlapPer5Mil(); 
+}
+
+function gunDeathsWithoutSuicdePer5Mil() {
+    for (var i = 0; i < countries.length; i++) {
+        // clear screen
+        countries[i].displayGunDeathsWithoutSuicidePer5Mil();
+        // draw overlapping gun deaths and suicides
+    } 
 }
 
 // views that we need
+// Maybe this one'll be implemented once the rest are done (?)
 // 1. pop of all countries
+// Katya's doing these ones
 // 2. separate countries, display pop of each
 // 3. turn into 100,000, so they're all the same size
 // 4. show gun deaths per overlaid on top of 100,000
+// Will's doing these ones
 // 5. only show gun deaths
 // 6. show percent of gun deaths that are suicides
 // 7. overlap gun deaths and suicides
+// 8. show gun deaths that AREN'T suicides
 
 function changeView(view) {
-    console.log("in changeView, view = ", view);
-    console.log("view is this type: ", typeof(view));
+    // console.log("in changeView, view = ", view);
+    // console.log("view is this type: ", typeof(view));
     switch(view) {
         case 0:
-            // console.log("trying to change to populationView");
-            populationView();
+            console.log("trying to change to populationView");
             break;
         case 1:
-            // console.log("trying to change to gunSuicideView");
-            gunSuicideView();
+            console.log("trying to change to gunSuicideView");
             break;
         case 2:
-            // console.log("trying to change to suicideGunOverlapView");
-            suicideGunOverlapView();
+            console.log("trying to change to suicideGunOverlapView");
             break;
         case 3:
+            console.log("trying to change to gunDeathsPer5Mil");
+            gunDeathsPer5Mil();
             break;
         case 4:
+            console.log("trying to change to gunDeathsWithSuicidesPer5Mil");
+            gunDeathsWithSuicidesPer5Mil();
+            break;
+        case 5:
+            console.log("trying to change to gunDeathSuicideOverlapPer5Mil");
+            gunDeathSuicideOverlapPer5Mil();
+            break;
+        case 6: console.log("trying to change to gunDeathsWithoutSuicdePer5Mil");
+            gunDeathsWithoutSuicdePer5Mil();
             break;
         default:
+            console.log("default case in changeView switch\nwe shouldn't be here");
             break;
     }
 }
@@ -475,7 +533,6 @@ $.get( {url : "/country_data",
        });
 
 $("#myButtons :input").change(function() {
-    console.log(this.value); // points to the clicked input button
     changeView(parseInt(this.value));
 });
 
