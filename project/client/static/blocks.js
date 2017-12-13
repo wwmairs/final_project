@@ -440,16 +440,19 @@ class Block {
 function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
     // starting point for drawing blocks
-    x_pos = 15
-    y_pos = 15
+    startY = BS_PADDING;
+    startX = BS_PADDING;
+    
+    x_pos = startX;
+    y_pos = startY;
     for (var i = 0; i < cs.length; i++) {
         country = new Country(cs[i], x_pos, y_pos)
         countries.push(country)
-        if (i % 2 == 0) {
-            x_pos += (BS_WIDTH + BS_PADDING)
+        if ((i + 1) % 3 == 0) {
+            x_pos = startX;
+            y_pos += (BS_HEIGHT + BS_PADDING);
         } else {
-            x_pos = 15
-            y_pos += (BS_HEIGHT + BS_PADDING)
+            x_pos += (BS_WIDTH + BS_PADDING);
         }
     }
 }
@@ -583,8 +586,8 @@ function nextButton(currentButton) {
 var countries = []
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
-svg.setAttribute("width", document.getElementById("container").offsetWidth);
-svg.setAttribute("height", 800);
+svg.setAttribute("width", ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING);
+svg.setAttribute("height", ((BS_HEIGHT + BS_PADDING) * 2) + BS_PADDING);
 container.appendChild(svg);
 let scaleContainer = document.getElementById("scale-svg");
 let scaleSvg = document.createElementNS(svgns, "svg");

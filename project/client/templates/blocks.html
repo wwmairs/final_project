@@ -15,52 +15,65 @@
       body {
         font-family: 'Cousine', monospace;
       }
+      #container{
+        margin: auto;
+        width: 90%;
+      }
     </style>
   </head>
   <body>
-    <div class="col-md-6 col-sm-7">
-      <div id="container"></div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div id="container"></div>
+      </div>
     </div>
-    <div class="col-md-6 col-sm-5">
-      <div id="myButtons" class="btn-group" data-toggle="buttons">
-        
-        <label class="btn btn-default active">
-          <input value="0" type="radio" name="view" autocomplete="off">
-        </label>
-        
-        <label class="btn btn-default">
-          <input value="1" type="radio" name="view" autocomplete="off">
-        </label>
-        
-        <label class="btn btn-default">
-          <input value="2" type="radio" name="view" autocomplete="off">
-        </label>
+    <div class="row" style="margin-left: 20px; margin-right: 20px;">
+      <div class="col-md-6 col-sm-6">
+          <div id="myButtons" class="btn-group" data-toggle="buttons">
+            
+            <label class="btn btn-default active">
+              <input value="0" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="1" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="2" type="radio" name="view" autocomplete="off">
+            </label>
 
-        <label class="btn btn-default">
-          <input value="3" type="radio" name="view" autocomplete="off">
-        </label>
-        
-        <label class="btn btn-default">
-          <input value="4" type="radio" name="view" autocomplete="off">
-        </label>
-        
-        <label class="btn btn-default">
-          <input value="5" type="radio" name="view" autocomplete="off">
-        </label>
+            <label class="btn btn-default">
+              <input value="3" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="4" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="5" type="radio" name="view" autocomplete="off">
+            </label>
 
-        <label class="btn btn-default">
-          <input value="6" type="radio" name="view" autocomplete="off">
-        </label>
-        
+            <label class="btn btn-default">
+              <input value="6" type="radio" name="view" autocomplete="off">
+            </label>
+            
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm"
+                  id="next">Next</button>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div id="scale-container">
+            <div id="scale-svg"></div>
+            <div id="scale-message"></div>
+          </div>
+        </div>
       </div>
-      <button type="button" class="btn btn-secondary btn-sm"
-              id="next">Next</button>
-      <div id="scale-container">
-        <div id="scale-svg"></div>
-        <div id="scale-message"></div>
-      </div>
-      <div id="message-container">
-        <p id="message"></p>
+      <div class="row" style="margin-left: 20px; margin-right: 20px;">
+        <div id="message-container">
+          <p id="message"></p>
+        </div>
       </div>
     </div>
     <script src="../static/blocks.js"></script>
