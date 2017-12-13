@@ -174,13 +174,13 @@ class Blocks {
         let count = 0;
         for (var x = 0; x < side; x++) {
             for (var y = 0; y < side; y++) {
-                this.bs[y + this.blocksTall * x].setColor("black");
+                this.bs[y + this.blocksTall * x].turnOn();
                 count++;
             }
         }
         y = 0
         while (count < numBlocks) {
-            this.bs[y + this.blocksTall * x].setColor("black");
+            this.bs[y + this.blocksTall * x].turnOn();
             y++;
             if (y >= side) {
                 y = 0;
@@ -404,7 +404,7 @@ class Block {
     }
     turnOn() {
         this.on = true;
-        this.b.setAttribute("fill", this.c);
+        this.b.setAttribute("fill", "black");
     }
 
     toggle() {
