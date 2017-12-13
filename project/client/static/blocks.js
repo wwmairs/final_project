@@ -586,6 +586,7 @@ $.get( {url : "/country_data",
             parsedData = JSON.parse(data);
             view_data = parsedData.countries;
             makeCountries(view_data); // Pass data to a function
+            changeView(0);
         }
        });
 
