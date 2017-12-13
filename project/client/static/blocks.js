@@ -16,6 +16,13 @@ const BS_HEIGHT = 235
 const BS_WIDTH = 300
 const GUN_SCALE = 10
 
+const MESSAGES = ["first message",
+                  "second message",
+                  "third message",
+                  "fourth message",
+                  "fifth message",
+                  "sixth message",
+                  "seventh message"]
 
 // TODO
 // extend Blocks with:
@@ -475,7 +482,7 @@ function gunDeathSuicideOverlapPer5Mil() {
         countries[i].displayGunDeathSuicideOverlapPer5Mil();
         // draw overlapping gun deaths and suicides
     }   
-    // countries[5].displayGunDeathSuicideOverlapPer5Mil(); 
+
 }
 
 function gunDeathsWithoutSuicdePer5Mil() {
@@ -484,6 +491,10 @@ function gunDeathsWithoutSuicdePer5Mil() {
         countries[i].displayGunDeathsWithoutSuicidePer5Mil();
         // draw overlapping gun deaths and suicides
     } 
+}
+
+function displayMessage(index) {
+    $("#message").html(MESSAGES[index]);
 }
 
 // views that we need
@@ -506,28 +517,36 @@ function changeView(view) {
         case 0:
             console.log("trying to change to blahView");
             blahView();
+            displayMessage(0);
             break;
         case 1:
             console.log("trying to change to populationView");
             populationView();
+            displayMessage(1);
             break;
         case 2:
             console.log("trying to change to suicideGunOverlapView");
+            displayMessage(2);
             break;
         case 3:
             console.log("trying to change to gunDeathsPer5Mil");
             gunDeathsPer5Mil();
+            displayMessage(3);
             break;
         case 4:
             console.log("trying to change to gunDeathsWithSuicidesPer5Mil");
             gunDeathsWithSuicidesPer5Mil();
+            displayMessage(4);
             break;
         case 5:
             console.log("trying to change to gunDeathSuicideOverlapPer5Mil");
             gunDeathSuicideOverlapPer5Mil();
+            displayMessage(5);
             break;
-        case 6: console.log("trying to change to gunDeathsWithoutSuicdePer5Mil");
+        case 6: 
+            console.log("trying to change to gunDeathsWithoutSuicdePer5Mil");
             gunDeathsWithoutSuicdePer5Mil();
+            displayMessage(6);
             break;
         default:
             console.log("default case in changeView switch\nwe shouldn't be here");
