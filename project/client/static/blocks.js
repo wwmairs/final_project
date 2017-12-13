@@ -16,13 +16,13 @@ const BS_HEIGHT = 235
 const BS_WIDTH = 300
 const GUN_SCALE = 10
 
-const MESSAGES = ["first message",
-                  "second message",
-                  "third message",
-                  "fourth message",
-                  "fifth message",
-                  "sixth message",
-                  "seventh message"]
+const MESSAGES = ["this is our final project",
+                  "here are the populations of each country",
+                  "something different will happen here soon",
+                  "woah, changed scale on ya; this is the number of gun deaths per 5 million people",
+                  "oh shit, that blue stuff is all the gun deaths caused by suicide",
+                  "let's look at the intersection between gun deaths and suicide",
+                  "now the red is all gun deaths whose cause is not suicide"]
 
 // TODO
 // extend Blocks with:
@@ -123,6 +123,13 @@ class Country {
         this.block.makeSquareWithColor(per5Mil(this.gunDeaths - this.gunSuicide,
                                                this.population),
                                        "red");
+    }
+}
+
+class Scale {
+    constructor(container, scale) {
+        this.b = new Block(scaleSvg, B_SIZE_POP, 10, 10, "black");
+        $("#scale-svg").next().html(scale);
     }
 }
 
@@ -579,6 +586,12 @@ let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", document.getElementById("container").offsetWidth);
 svg.setAttribute("height", 800);
 container.appendChild(svg);
+let scaleContainer = document.getElementById("scale-svg");
+let scaleSvg = document.createElementNS(svgns, "svg");
+scaleSvg.setAttribute("width", 20);
+scaleSvg.setAttribute("height", 20);
+scaleContainer.appendChild(scaleSvg);
+let scale = new Scale(scaleContainer, POP_SCALE);
 
 // get req to get country data
 $.get( {url : "/country_data",
