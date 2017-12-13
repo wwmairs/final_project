@@ -475,6 +475,8 @@ function scaleView(val) {
         countries[i].turnOff(val);
     }
     b.allOn()
+    crazyNumber = 5000000 / b.capacity;
+    console.log(crazyNumber);
 }
 
 function per5Mil(value, population) {
