@@ -6,11 +6,14 @@ const B_SIZE    = 4;
 const B_PADDING = 2;
 const B_RATIO   = B_SIZE + B_PADDING
 
+const B_SIZE_POP = 4;
+const B_PADDING_POP = 2;
+const B_RATIO_POP = B_SIZE_POP + B_PADDING_POP
+const POP_SCALE = 200000
+
 const BS_PADDING = 15
 const BS_HEIGHT = 235
 const BS_WIDTH = 300
-const BS_TOTAL = (BS_HEIGHT / B_RATIO) * (BS_WIDTH / B_RATIO)
-const B_SCALE = 100000
 const GUN_SCALE = 10
 
 
@@ -37,12 +40,22 @@ class Country {
         this.gunSuicide = data[3];
         this.totalSuicide = data[4];
         this.totalGuns = data[5]
-        this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT)
+        this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT, B_SIZE_POP, B_PADDING_POP)
+    }
+
+    displayBlah() {
+        this.block.allOn()
+    }
+
+    updateBlocks(size, padding) {
+        this.block.changeBlockSize(size, padding)
     }
 
     displayPopulation() {
-        var num_blocks = Math.floor(this.population / B_SCALE)
-        this.block.makeSquare(num_blocks)
+        this.updateBlocks(B_SIZE_POP, B_PADDING_POP)
+        var numBlocks = Math.floor(this.population / POP_SCALE)
+        this.block.makeSquare(numBlocks)
+        
     }
 
     colorByCategory() {
@@ -75,7 +88,7 @@ class Country {
 }
 
 class Blocks {
-    constructor(_x, _y, width, height) {
+    constructor(_x, _y, width, height, size, padding) {
         this.x  = _x;
         this.y  = _y;
         this.w  = width;
@@ -85,13 +98,23 @@ class Blocks {
         this.g.setAttribute("class", "block-chart");
         svg.appendChild(this.g);
         // make an array of Block s
-        this.blocksWide = Math.ceil(width / B_RATIO);
-        this.blocksTall = Math.ceil(height / B_RATIO);
+        this.blocksWide = Math.ceil(width / (size + padding));
+        this.blocksTall = Math.ceil(height / (size + padding));
         this.capacity = this.blocksWide * this.blocksTall;
         let counter = 0
         for (let i = 0; i < this.blocksWide; i++) {
             for (let j = 0; j < this.blocksTall; j++) {
-                this.bs[counter] = new Block(this.g, this.x + i * B_RATIO, this.y + j * B_RATIO, "black");
+                this.bs[counter] = new Block(this.g, size, this.x + i * (size + padding), this.y + j * (size + padding), "black");
+                counter++;
+            }
+        }
+    }
+
+    changeBlockSize(size, padding) {
+        let counter = 0
+        for (let i = 0; i < this.blocksWide; i++) {
+            for (let j = 0; j < this.blocksTall; j++) {
+                this.bs[counter].updatePosition(this.x + i * (size + padding), this.y + j * (size + padding), size)
                 counter++;
             }
         }
@@ -112,7 +135,7 @@ class Blocks {
 
     makeSquare(numBlocks) {
         this.allOff();
-        if (numBlocks >= this.capacity) {
+        if (numBlocks > this.capacity) {
             throw "ya tried to make " + numBlocks + " blocks, but the capacity of these dimensions is only " + this.capacity;
         }
         let side = Math.floor(Math.sqrt(numBlocks));
@@ -316,7 +339,7 @@ class Blocks {
 }
 
 class Block {
-    constructor(container, _x, _y, _c) {
+    constructor(container, size, _x, _y, _c) {
         this.parent = container;
         this.x = _x;
         this.y = _y;
@@ -325,13 +348,22 @@ class Block {
         this.b = document.createElementNS(svgns, "rect");
         this.b.setAttribute("x", this.x);
         this.b.setAttribute("y", this.y);
-        this.b.setAttribute("width", B_SIZE);
-        this.b.setAttribute("height", B_SIZE);
+        this.b.setAttribute("width", size);
+        this.b.setAttribute("height", size);
         this.parent.appendChild(this.b);
         let parent = this;
         this.b.addEventListener("click", function(event) {
             parent.toggle();
         });
+    }
+
+    updatePosition(_x, _y, size) {
+        this.x = _x;
+        this.y = _y;
+        this.b.setAttribute("width", size);
+        this.b.setAttribute("height", size);
+        this.b.setAttribute("x", this.x);
+        this.b.setAttribute("y", this.y);
     }
 
     turnOff() {
@@ -376,16 +408,14 @@ function makeCountries(cs) {
     }
 }
 
-function main() {
+function blahView() {
+    console.log('HELLOOOO O O O');
     for (var i = 0; i < countries.length; i++) {
-        // countries[i].displayPopulation();
-        // countries[i].colorByCategory();
-        countries[i].displayOverlap();
+        countries[i].displayBlah();
     }
 }
 
 function populationView() {
-    console.log("HEL L O")
     for (var i = 0; i < countries.length; i++) {
         countries[i].displayPopulation();
     }
@@ -416,24 +446,20 @@ function changeView(view) {
     console.log("in changeView, view = ", view);
     console.log("view is this type: ", typeof(view));
     switch(view) {
-        case 0:
-            // console.log("trying to change to populationView");
-            populationView();
-            break;
-        case 1:
-            // console.log("trying to change to gunSuicideView");
-            gunSuicideView();
-            break;
-        case 2:
-            // console.log("trying to change to suicideGunOverlapView");
-            suicideGunOverlapView();
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        default:
-            break;
+    case 0:
+        blahView();
+        break;
+    case 1:
+        populationView();
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    default:
+        break;
     }
 }
 
@@ -457,15 +483,13 @@ function nextButton(currentButton) {
 
 // here's where it all begins
 var countries = []
-// create container to contain all things SVG
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", document.getElementById("container").offsetWidth);
 svg.setAttribute("height", 800);
 container.appendChild(svg);
 
-
-// get req to get country data.... this was truly the best way to do it
+// get req to get country data
 $.get( {url : "/country_data",
         success : function(data) {
             parsedData = JSON.parse(data);
