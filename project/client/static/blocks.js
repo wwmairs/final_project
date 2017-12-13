@@ -467,7 +467,7 @@ $.get( {url : "/country_data",
 
 $("#myButtons :input").change(function() {
     console.log(this.value); // points to the clicked input button
-    changeView(this.value);
+    changeView(parseInt(this.value));
 });
 
 $("#next").click(function () {
