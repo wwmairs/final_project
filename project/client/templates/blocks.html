@@ -11,66 +11,86 @@
       svg { 
       margin: 0 auto;
       }
-
       body {
-        font-family: 'Cousine', monospace;
+      font-family: 'Cousine', monospace;
       }
-/*      #container{
-        margin: 0 auto;
-        width: 95%;
+
+      p {
+      margin-top: 3mm;
+      }
+      /*#container{
+      margin: 0 auto;
+      width: 95%;
       }*/
     </style>
   </head>
   <body>
     <div class="col-md-2 col-sm-2"></div>
-    <div class="col-md-10 col-sm-10">
+    <div class="col-md-8 col-sm-8">
+
+      <!-- blocks -->
       <div class="row">
         <div id="container"></div>
       </div>
-      
+
+      <!-- under blocks -->
       <div class="row">
-        <div id="myButtons" class="btn-group" data-toggle="buttons">
-          
-          <label class="btn btn-default active">
-            <input value="0" type="radio" name="view" autocomplete="off">
-          </label>
-          
-          <label class="btn btn-default">
-            <input value="1" type="radio" name="view" autocomplete="off">
-          </label>
-          
-          <label class="btn btn-default">
-            <input value="2" type="radio" name="view" autocomplete="off">
-          </label>
-          
-          <label class="btn btn-default">
-            <input value="3" type="radio" name="view" autocomplete="off">
-          </label>
-          
-          <label class="btn btn-default">
-            <input value="4" type="radio" name="view" autocomplete="off">
-          </label>
-          
-          <label class="btn btn-default">
-            <input value="5" type="radio" name="view" autocomplete="off">
-          </label>
-          
-          <label class="btn btn-default">
-            <input value="6" type="radio" name="view" autocomplete="off">
-          </label>
-          
-          <label class="btn btn-default">
-            <input value="7" type="radio" name="view" autocomplete="off">
-          </label>
-          
-        </div>
-        <button type="button" class="btn btn-secondary btn-sm" id="next">Next</button>
-        <div id="scale-container">
+
+        <!-- scale -->
+        <div id="scale-container" class="col-md-1 col-sm-1">
           <div id="scale-svg"></div>
           <div id="scale-message"></div>
         </div>
+
+        <div class="col-md-7 col-sm-7">
+          <p align="center">SMALL DESCRIP OF CURRENT VIEW</p>
+        </div>
+
+        <!-- radio buttons -->
+
+        <div class="col-md-4 col-sm-4">
+          <div id="myButtons" class="btn-group" data-toggle="buttons">
+            
+            <label class="btn btn-default active">
+              <input value="0" type="radio" name="view" autocomplete="off">
+            </label>
+          
+            <label class="btn btn-default">
+              <input value="1" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="2" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="3" type="radio" name="view" autocomplete="off">
+            </label>
+          
+            <label class="btn btn-default">
+              <input value="4" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="5" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="6" type="radio" name="view" autocomplete="off">
+            </label>
+            
+            <label class="btn btn-default">
+              <input value="7" type="radio" name="view" autocomplete="off">
+            </label>
+            
+          </div>
+
+        <!-- next button -->
+        <button type="button" class="btn btn-secondary btn-sm"
+                id="next">Next</button>
+        </div>
       </div>
-      <div class="row" style="margin-left: 20px; margin-right: 20px;">
+      <div class="row">
         <div id="message-container">
           <p id="message"></p>
         </div>
