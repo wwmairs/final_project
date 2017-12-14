@@ -11,6 +11,8 @@ const B_PADDING_POP = 2;
 const B_RATIO_POP = B_SIZE_POP + B_PADDING_POP
 const POP_SCALE = 200000
 
+
+const BS_LABEL_PADDING = 10
 const BS_PADDING = 10
 const BS_HEIGHT = 235
 const BS_WIDTH = 300
@@ -48,7 +50,22 @@ class Country {
         this.gunSuicide = data[3];
         this.totalSuicide = data[4];
         this.totalGuns = data[5]
-        this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT, B_SIZE_POP, B_PADDING_POP)
+        this.block = new Blocks (x, y, BS_WIDTH, BS_HEIGHT, B_SIZE_POP, B_PADDING_POP);
+        this.t = document.createElementNS(svgns, "text");
+        this.t.innerHTML = this.name;
+        this.t.setAttribute("x", x);
+        this.t.setAttribute("y", y - (BS_LABEL_PADDING / 2));
+        this.block.label.appendChild(this.t);
+
+    }
+
+    labelOn() {
+        this.t.setAttribute("fill", "white");
+        
+    }
+
+    labelOff() {
+        this.t.setAttribute("fill", "black");
     }
 
     turnOff() {
@@ -152,7 +169,9 @@ class Blocks {
         this.bs = [];
         this.g  = document.createElementNS(svgns, "g");
         this.g.setAttribute("class", "block-chart");
+        this.label = document.createElementNS(svgns, "g");
         svg.appendChild(this.g);
+        svg.appendChild(this.label);
         // make an array of Block s
         this.blocksWide = Math.ceil(width / (size + padding));
         this.blocksTall = Math.ceil(height / (size + padding));
@@ -452,7 +471,7 @@ class Block {
 function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
     // starting point for drawing blocks
-    startY = 0;
+    startY = BS_LABEL_PADDING;
     startX = 0;
     
     x_pos = startX;
@@ -462,7 +481,7 @@ function makeCountries(cs) {
         countries.push(country)
         if ((i + 1) % 3 == 0) {
             x_pos = startX;
-            y_pos += (BS_HEIGHT + BS_PADDING);
+            y_pos += (BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING);
         } else {
             x_pos += (BS_WIDTH + BS_PADDING - 4);
         }
@@ -470,7 +489,6 @@ function makeCountries(cs) {
 }
 
 function blahView() {
-    console.log('HELLOOOO O O O');
     for (var i = 0; i < countries.length; i++) {
         countries[i].displayBlah();
     }
@@ -570,11 +588,17 @@ function changeView(view) {
     case 3:
         console.log("trying to change to scaleView");        
         scaleView(5000000);
+        for (let n = 0; n < countries.length; n++) {
+            countries.labelOff();
+        }
         displayMessage(3);
         break;
     case 4:
         console.log("trying to change to gunDeathsPer5Mil");
         gunDeathsPer5Mil();
+        for (let n = 0; n < countries.length; n++) {
+            countries.labelOn();
+        }
         displayMessage(4);
         break;
     case 5:
@@ -620,7 +644,7 @@ var countries = []
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING);
-svg.setAttribute("height", ((BS_HEIGHT + BS_PADDING) * 2) + BS_PADDING);
+svg.setAttribute("height", ((BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2) + BS_LABEL_PADDING);
 container.appendChild(svg);
 let scaleContainer = document.getElementById("scale-svg");
 let scaleSvg = document.createElementNS(svgns, "svg");
