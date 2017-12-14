@@ -59,13 +59,14 @@ class Country {
 
     }
 
-    labelOn() {
-        this.t.setAttribute("fill", "white");
-        
+    labelOff() {
+        console.log("trying to turn off label");
+        this.t.setAttribute("opacity", 0);
     }
 
-    labelOff() {
-        this.t.setAttribute("fill", "black");
+    labelOn() {
+        console.log("trying to turn on label");
+        this.t.setAttribute("opacity", 100);
     }
 
     turnOff() {
@@ -589,7 +590,7 @@ function changeView(view) {
         console.log("trying to change to scaleView");        
         scaleView(5000000);
         for (let n = 0; n < countries.length; n++) {
-            countries.labelOff();
+            countries[n].labelOff();
         }
         displayMessage(3);
         break;
@@ -597,7 +598,7 @@ function changeView(view) {
         console.log("trying to change to gunDeathsPer5Mil");
         gunDeathsPer5Mil();
         for (let n = 0; n < countries.length; n++) {
-            countries.labelOn();
+            countries[n].labelOn();
         }
         displayMessage(4);
         break;
