@@ -27,21 +27,6 @@ const MESSAGES = ["this is our final project WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
                   "let's look at the intersection between gun deaths and suicide",
                   "now the red is all gun deaths whose cause is not suicide"]
 
-// TODO
-// extend Blocks with:
-//  - # people to represent
-//  - ratio of people per Block
-//  - left and top justified
-//  - instead of holding a single list of Block instances
-//    it should have a dictionary of lists of Block instances
-//
-// extend Block with:
-//  - 
-
-// an instance of a Blocks class should make:
-//      - a wrapper for all of the Blocks it contains
-//      - a square for each Block it contains
-
 class Country {
     constructor(data, x, y) {
         this.name = data[0];
@@ -56,6 +41,14 @@ class Country {
         this.t.setAttribute("x", x);
         this.t.setAttribute("y", y - (BS_LABEL_PADDING / 2));
         this.block.label.appendChild(this.t);
+        let c = this;
+        this.block.g.addEventListener("mouseover", function (event) {
+            let container = $("#info-container");
+            container.html("<h3>" + c.name + "</h3><p>pop: " + c.population + "<br>gun deaths: " + c.gunDeaths + "<br>gun suicide: " + c.gunSuicide + "<br>suicide: " + c.totalSuicide + "<br>guns: " + c.totalGuns + "</p>");
+        });
+        this.block.g.addEventListener("mouseleave", function(event) {
+            $("#info-container").html("");
+        });
 
     }
 
@@ -88,6 +81,7 @@ class Country {
         this.block.makeSquare(numBlocks)
         
     }
+
 
     displayPopulationPortion(val) {
         var portion = val / POP_SCALE
