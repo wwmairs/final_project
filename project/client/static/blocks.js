@@ -18,14 +18,25 @@ const BS_HEIGHT = 235
 const BS_WIDTH = 300
 const GUN_SCALE = 10
 
-const MESSAGES = ["this is our final project WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
-                  "here are the populations of each country",
-                  "let's look at some rates per 5 million citizerns",
-                  "it would take a ton of space to show all 5 million",
-                  "woah, changed scale on ya; this is the number of gun deaths per 5 million people",
-                  "oh shit, that blue stuff is all the gun deaths caused by suicide",
-                  "let's look at the intersection between gun deaths and suicide",
-                  "now the red is all gun deaths whose cause is not suicide"]
+const VIEW_DESCRIPTION = ["description 1",
+                          "description 2",
+                          "description 3",
+                          "description 4",
+                          "description 5",
+                          "description 6",
+                          "description 7",
+                          "description 8",
+                          "description 9",
+                         ]
+const VIEW_COPY = ["this is our final project",
+              "here are the populations of each country",
+              "let's look at some rates per 5 million citizerns",
+              "it would take a ton of space to show all 5 million",
+              "woah, changed scale on ya; this is the number of gun deaths per 5 million people",
+              "oh shit, that blue stuff is all the gun deaths caused by suicide",
+              "let's look at the intersection between gun deaths and suicide",
+              "now the red is all gun deaths whose cause is not suicide"
+             ]
 
 class Country {
     constructor(data, x, y) {
@@ -544,7 +555,8 @@ function gunDeathsWithoutSuicdePer5Mil() {
 }
 
 function displayMessage(index) {
-    $("#message").html(MESSAGES[index]);
+    $("#title").html(VIEW_DESCRIPTION[index]);
+    $("#message").html(VIEW_COPY[index]);
 }
 
 // views that we need
