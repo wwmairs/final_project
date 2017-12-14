@@ -44,7 +44,7 @@ class Country {
         let c = this;
         this.block.g.addEventListener("mouseover", function (event) {
             let container = $("#info-container");
-            container.html("<h3>" + c.name + "</h3><p>pop: " + c.population + "<br>gun deaths: " + c.gunDeaths + "<br>gun suicide: " + c.gunSuicide + "<br>suicide: " + c.totalSuicide + "<br>guns: " + c.totalGuns + "</p>");
+            container.html("<h3>" + c.name + "</h3><p>pop: " + c.population.toLocaleString() + "<br>gun deaths: " + c.gunDeaths.toLocaleString() + "<br>gun suicide: " + c.gunSuicide.toLocaleString() + "<br>suicide: " + c.totalSuicide.toLocaleString() + "<br>guns: " + c.totalGuns.toLocaleString() + "</p>");
         });
 
     }
