@@ -8,29 +8,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/yeti/bootstrap.min.css" rel="stylesheet" media="screen">
     <style>
-      svg{
-        /*border: 1px solid black;*/
+      svg { 
+      margin: 0 auto;
       }
 
       body {
         font-family: 'Cousine', monospace;
       }
       #container{
-        margin: auto;
-        width: 90%;
+        margin: 0 auto;
+        width: 95%;
       }
     </style>
   </head>
   <body>
     <div class="row">
-      <div class="col-md-12 col-sm-12">
-        <div id="container"></div>
-      </div>
-    </div>
-    <div class="row" style="margin-left: 20px; margin-right: 20px;">
-      <div class="col-md-6 col-sm-6">
+      <div class="col-md-2 col-sm-2"></div>
+      <div class="col-md-10 col-sm-10">
+        
+        <div class="row">
+          <div id="container"></div>
+        </div>
+        
+        <div class="row" style="margin-left: 20px; margin-right: 20px;">
           <div id="myButtons" class="btn-group" data-toggle="buttons">
-            
+
             <label class="btn btn-default active">
               <input value="0" type="radio" name="view" autocomplete="off">
             </label>
@@ -62,26 +64,22 @@
             <label class="btn btn-default">
               <input value="7" type="radio" name="view" autocomplete="off">
             </label>
-            
+         
           </div>
-          <button type="button" class="btn btn-secondary btn-sm"
-                  id="next">Next</button>
-        </div>
-        <div class="col-md-6 col-sm-6">
+          <button type="button" class="btn btn-secondary btn-sm" id="next">Next</button>
           <div id="scale-container">
             <div id="scale-svg"></div>
             <div id="scale-message"></div>
           </div>
         </div>
-      </div>
-      <div class="row" style="margin-left: 20px; margin-right: 20px;">
-        <div id="message-container">
-          <p id="message"></p>
+        <div class="row" style="margin-left: 20px; margin-right: 20px;">
+          <div id="message-container">
+            <p id="message"></p>
+          </div>
         </div>
       </div>
-    </div>
-    <script src="../static/blocks.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+      <script src="../static/blocks.js"></script>
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
   </body>
 </html>
 

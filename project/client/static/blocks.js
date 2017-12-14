@@ -11,7 +11,7 @@ const B_PADDING_POP = 2;
 const B_RATIO_POP = B_SIZE_POP + B_PADDING_POP
 const POP_SCALE = 200000
 
-const BS_PADDING = 15
+const BS_PADDING = 10
 const BS_HEIGHT = 235
 const BS_WIDTH = 300
 const GUN_SCALE = 10
@@ -452,8 +452,8 @@ class Block {
 function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
     // starting point for drawing blocks
-    startY = BS_PADDING;
-    startX = BS_PADDING;
+    startY = 0;
+    startX = 0;
     
     x_pos = startX;
     y_pos = startY;
@@ -464,7 +464,7 @@ function makeCountries(cs) {
             x_pos = startX;
             y_pos += (BS_HEIGHT + BS_PADDING);
         } else {
-            x_pos += (BS_WIDTH + BS_PADDING);
+            x_pos += (BS_WIDTH + BS_PADDING - 4);
         }
     }
 }
