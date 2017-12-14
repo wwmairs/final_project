@@ -11,7 +11,7 @@ const B_PADDING_POP = 2;
 const B_RATIO_POP = B_SIZE_POP + B_PADDING_POP
 const POP_SCALE = 200000
 
-const BS_LABEL_HEIGHT = 20
+const BS_LABEL_PADDING = 10
 const BS_PADDING = 15
 const BS_HEIGHT = 235
 const BS_WIDTH = 300
@@ -53,8 +53,16 @@ class Country {
         this.t = document.createElementNS(svgns, "text");
         this.t.innerHTML = this.name;
         this.t.setAttribute("x", x);
-        this.t.setAttribute("y", y + BS_HEIGHT + BS_LABEL_HEIGHT);
+        this.t.setAttribute("y", y - (BS_LABEL_PADDING / 2));
         this.block.label.appendChild(this.t);
+
+    }
+
+    labelOn() {
+        
+    }
+
+    labelOff() {
 
     }
 
@@ -461,7 +469,7 @@ class Block {
 function makeCountries(cs) {
     // this is messy code, we should talk about how to structure it.
     // starting point for drawing blocks
-    startY = BS_PADDING;
+    startY = BS_PADDING + BS_LABEL_PADDING;
     startX = BS_PADDING;
     
     x_pos = startX;
@@ -471,7 +479,7 @@ function makeCountries(cs) {
         countries.push(country)
         if ((i + 1) % 3 == 0) {
             x_pos = startX;
-            y_pos += (BS_HEIGHT + BS_PADDING + BS_LABEL_HEIGHT);
+            y_pos += (BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING);
         } else {
             x_pos += (BS_WIDTH + BS_PADDING);
         }
@@ -629,7 +637,7 @@ var countries = []
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING);
-svg.setAttribute("height", ((BS_HEIGHT + BS_PADDING + BS_LABEL_HEIGHT) * 2) + BS_PADDING);
+svg.setAttribute("height", (BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2);
 container.appendChild(svg);
 let scaleContainer = document.getElementById("scale-svg");
 let scaleSvg = document.createElementNS(svgns, "svg");
