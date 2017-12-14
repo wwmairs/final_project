@@ -59,11 +59,12 @@ class Country {
     }
 
     labelOn() {
+        this.t.setAttribute("fill", "white");
         
     }
 
     labelOff() {
-
+        this.t.setAttribute("fill", "black");
     }
 
     turnOff() {
@@ -587,11 +588,17 @@ function changeView(view) {
     case 3:
         console.log("trying to change to scaleView");        
         scaleView(5000000);
+        for (let n = 0; n < countries.length; n++) {
+            countries.labelOff();
+        }
         displayMessage(3);
         break;
     case 4:
         console.log("trying to change to gunDeathsPer5Mil");
         gunDeathsPer5Mil();
+        for (let n = 0; n < countries.length; n++) {
+            countries.labelOn();
+        }
         displayMessage(4);
         break;
     case 5:
@@ -637,7 +644,7 @@ var countries = []
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING);
-svg.setAttribute("height", (BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2);
+svg.setAttribute("height", ((BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2) + BS_LABEL_PADDING);
 container.appendChild(svg);
 let scaleContainer = document.getElementById("scale-svg");
 let scaleSvg = document.createElementNS(svgns, "svg");
