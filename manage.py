@@ -80,7 +80,7 @@ def create_data():
 	suicides=6045,
         guns=2403186)
 
-    for country in [americuh, fronce, yermany, lawstralia, canaduh, angland]:
+    for country in [americuh, yermany, fronce, canaduh, lawstralia, angland]:
         db.session.add(country)
 
     db.session.commit()

@@ -46,9 +46,6 @@ class Country {
             let container = $("#info-container");
             container.html("<h3>" + c.name + "</h3><p>pop: " + c.population + "<br>gun deaths: " + c.gunDeaths + "<br>gun suicide: " + c.gunSuicide + "<br>suicide: " + c.totalSuicide + "<br>guns: " + c.totalGuns + "</p>");
         });
-        this.block.g.addEventListener("mouseleave", function(event) {
-            $("#info-container").html("");
-        });
 
     }
 
@@ -640,6 +637,9 @@ let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
 svg.setAttribute("width", ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING);
 svg.setAttribute("height", ((BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2) + BS_LABEL_PADDING);
+svg.addEventListener("mouseleave", function(event) {
+            $("#info-container").html("");
+        });
 container.appendChild(svg);
 let scaleContainer = document.getElementById("scale-svg");
 let scaleSvg = document.createElementNS(svgns, "svg");
