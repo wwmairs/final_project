@@ -18,12 +18,12 @@ const GUN_SCALE = 10
 
 const MESSAGES = ["this is our final project",
                   "here are the populations of each country",
-                  "something different will happen here soon",
+                  "let's look at some rates per 5 million citizerns",
+                  "it would take a ton of space to show all 5 million",
                   "woah, changed scale on ya; this is the number of gun deaths per 5 million people",
                   "oh shit, that blue stuff is all the gun deaths caused by suicide",
                   "let's look at the intersection between gun deaths and suicide",
-                  "now the red is all gun deaths whose cause is not suicide",
-                  "these are out of order"]
+                  "now the red is all gun deaths whose cause is not suicide"]
 
 // TODO
 // extend Blocks with:
@@ -127,9 +127,9 @@ class Country {
 
     displayGunDeathsWithoutSuicidePer5Mil() {
         this.block.allOff();
-        this.block.makeSquareWithColor(per5Mil(this.gunDeaths,
-                                               this.population),
-                                       "grey");
+        // this.block.makeSquareWithColor(per5Mil(this.gunDeaths,
+        //                                        this.population),
+        //                                "grey");
         this.block.makeSquareWithColor(per5Mil(this.gunDeaths - this.gunSuicide,
                                                this.population),
                                        "red");
