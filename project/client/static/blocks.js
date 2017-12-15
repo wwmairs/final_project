@@ -33,10 +33,10 @@ const VIEW_DESCRIPTION = ["A closer look at gun violence",
                          ]
 const VIEW_COPY = ["In the United States there are 89 civilian guns for every hundred people.  That's more than twice the rate in Germany, and twenty times that in the United Kingdom, where there are fewer than 4 guns per hundred people.  These six countries are ordered (left to right, top to bottom) by the number of guns per capita.",
               "The populations of these six countries vary greatly, as well.",
-              "So, we'll look at multiple gun death statistics as rates of occurrence per five million people.",
+              "So, we'll look at multiple gun death statistics using a sample of five million people.",
               "With one square per person, you would need forty laptops to display all five million people.  This box only fits fifteen thousand",
               "With the exception of Germany, the rate of gun death is directly proportional to gun ownership.  But many causes make up these rates.",
-              "The majority of gun deaths <a href='https://fivethirtyeight.com/features/gun-deaths/'>are suicides</a>.  This raises the question of whether prevalence of guns lead to more suicides, or more people commit suicide using guns in countries where there are more guns?",
+              "The majority of gun deaths <a href='https://fivethirtyeight.com/features/gun-deaths/'>are suicides</a>.  This raises the question of whether prevalence of guns lead to more suicides, or more people commit suicide using guns in countries where there are more guns.",
               "The intersection of gun deaths and suicide is shown in grey.  The rate of suicide across these countries is not shown to be correlated with the rate of gun deaths.  In fact, the United States has the lowest proportion of gun deaths that are suicides, at 62%, in contrast with Australia, where 83% of gun deaths are suicides.",
               "Adjusting for suicide reveals an even greater discrepacy of gun death rates between the United States and other countries of similar socio-economic status."
              ]
