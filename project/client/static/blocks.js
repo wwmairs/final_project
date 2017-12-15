@@ -16,7 +16,7 @@ const BS_LABEL_PADDING = 20
 const BS_PADDING = 15
 const BS_HEIGHT = 235
 const BS_WIDTH = 300
-const GUN_SCALE = 10
+const GUN_SCALE = 1
 
 const VIEW_DESCRIPTION = ["description 1",
                           "description 2",
@@ -581,16 +581,19 @@ function changeView(view) {
         console.log("trying to change to blahView");
         blahView();
         displayMessage(0);
+        $("#scale-svg").next().html(String(POP_SCALE) + " people");
         break;
     case 1:
         console.log("trying to change to populationView");
         populationView();
         displayMessage(1);
+        $("#scale-svg").next().html(String(POP_SCALE) + " people");
         break;
     case 2:
         console.log("trying to change to populationPortionView");
         populationPortionView(5000000);
         displayMessage(2);
+        $("#scale-svg").next().html(String(POP_SCALE) + " people");
         break;
     case 3:
         console.log("trying to change to scaleView");        
@@ -599,6 +602,7 @@ function changeView(view) {
             countries[n].labelOff();
         }
         displayMessage(3);
+        $("#scale-svg").next().html(String(GUN_SCALE) + " person");
         break;
     case 4:
         console.log("trying to change to gunDeathsPer5Mil");
@@ -607,20 +611,24 @@ function changeView(view) {
             countries[n].labelOn();
         }
         displayMessage(4);
+        $("#scale-svg").next().html(String(GUN_SCALE) + " person");
         break;
     case 5:
         console.log("trying to change to gunDeathsWithSuicidesPer5Mil");
         gunDeathsWithSuicidesPer5Mil();
         displayMessage(5);
+        $("#scale-svg").next().html(String(GUN_SCALE) + " person");
         break;
     case 6:
         console.log("trying to change to gunDeathSuicideOverlapPer5Mil");
         gunDeathSuicideOverlapPer5Mil();
         displayMessage(6);
+        $("#scale-svg").next().html(String(GUN_SCALE) + " person");
         break;
     case 7: console.log("trying to change to gunDeathsWithoutSuicdePer5Mil");
         gunDeathsWithoutSuicdePer5Mil();
         displayMessage(7);
+        $("#scale-svg").next().html(String(GUN_SCALE) + " person");
         break;
     default:
         console.log("default case in changeView switch\nwe shouldn't be here");
