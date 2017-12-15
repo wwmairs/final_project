@@ -573,6 +573,11 @@ function changeView(view) {
     b.allOff()
     switch(view) {
     case 0:
+        var s = Snap("#svg1");
+        var whiteRect = s.rect(0, 0,
+                               ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING,
+                               ((BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2) + BS_LABEL_PADDING).attr({fill: "white", "fill-opacity":1});
+        whiteRect.animate({"fill-opacity": 0}, 2000)
         gunsView();
         for (let n = 0; n < countries.length; n++) {
             countries[n].labelOn();
@@ -664,6 +669,7 @@ function nextButton(currentButton) {
 var countries = []
 let container = document.getElementById("container");
 let svg = document.createElementNS(svgns, "svg");
+svg.id="svg1"
 svg.setAttribute("width", ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING);
 svg.setAttribute("height", ((BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2) + BS_LABEL_PADDING);
 svg.addEventListener("mouseleave", function(event) {
