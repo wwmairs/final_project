@@ -50,12 +50,10 @@ class Country {
     }
 
     labelOff() {
-        console.log("trying to turn off label");
         this.t.setAttribute("opacity", 0);
     }
 
     labelOn() {
-        console.log("trying to turn on label");
         this.t.setAttribute("opacity", 100);
     }
 
@@ -194,8 +192,6 @@ class Blocks {
     // and the third element is the overlapping section
     overlap(cs) {
         let firstSide = this.makeSquareWithColorXY(cs[0].size, cs[0].color, 0, 0);
-        console.log("first side: ", firstSide);
-        console.log("overlap should have ", cs[2].size, " blocks");
         let diff = Math.floor(Math.sqrt(cs[2].size));
         this.makeOverlappingSquare(cs[1].size, cs[1].color, cs[2].color, firstSide - diff + 1, firstSide - diff + 1);
     }
@@ -264,7 +260,7 @@ class Blocks {
                     this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
                 }
                 catch(err) {
-                    console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+                    console.error("tried setcolor at block " + (y + startY) + ", " + (x + startX));
                 }
                 count++;
             }
@@ -275,7 +271,7 @@ class Blocks {
                 this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
             }
             catch(err) {
-                console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+                console.error("tried setcolor at block " + (y + startY) + ", " + (x + startX));
             }
             y++;
             if (y >= side) {
@@ -303,7 +299,7 @@ class Blocks {
                     }
                 }
                 catch(err) {
-                    console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+                    console.error("tried setcolor at block " + (y + startY) + ", " + (x + startX));
                 }
                 count++;
             }
@@ -314,7 +310,7 @@ class Blocks {
                 this.bs[(y + startY) + this.blocksTall * (x + startX)].setColor(color);
             }
             catch(err) {
-                console.log("tried setcolor at block " + (y + startY) + ", " + (x + startX));
+                console.error("tried setcolor at block " + (y + startY) + ", " + (x + startX));
             }
             y++;
             if (y >= side) {
@@ -504,7 +500,6 @@ function scaleView(val) {
     }
     b.allOn()
     crazyNumber = 5000000 / b.capacity;
-    console.log(crazyNumber);
 }
 
 function per5Mil(value, population) {
@@ -559,26 +554,29 @@ function displayMessage(index) {
 
 function changeView(view) {
     b.allOff()
-    // console.log("in changeView, view = ", view);
-    // console.log("view is this type: ", typeof(view));
     switch(view) {
     case 0:
-        console.log("trying to change to blahView");
         blahView();
+        for (let n = 0; n < countries.length; n++) {
+            countries[n].labelOn();
+        }
         displayMessage(0);
         break;
     case 1:
-        console.log("trying to change to populationView");
         populationView();
+        for (let n = 0; n < countries.length; n++) {
+            countries[n].labelOn();
+        }
         displayMessage(1);
         break;
     case 2:
-        console.log("trying to change to populationPortionView");
         populationPortionView(5000000);
+        for (let n = 0; n < countries.length; n++) {
+            countries[n].labelOn();
+        }
         displayMessage(2);
         break;
     case 3:
-        console.log("trying to change to scaleView");        
         scaleView(5000000);
         for (let n = 0; n < countries.length; n++) {
             countries[n].labelOff();
@@ -586,7 +584,6 @@ function changeView(view) {
         displayMessage(3);
         break;
     case 4:
-        console.log("trying to change to gunDeathsPer5Mil");
         gunDeathsPer5Mil();
         for (let n = 0; n < countries.length; n++) {
             countries[n].labelOn();
@@ -594,17 +591,24 @@ function changeView(view) {
         displayMessage(4);
         break;
     case 5:
-        console.log("trying to change to gunDeathsWithSuicidesPer5Mil");
         gunDeathsWithSuicidesPer5Mil();
+        for (let n = 0; n < countries.length; n++) {
+            countries[n].labelOn();
+        }
         displayMessage(5);
         break;
     case 6:
-        console.log("trying to change to gunDeathSuicideOverlapPer5Mil");
         gunDeathSuicideOverlapPer5Mil();
+        for (let n = 0; n < countries.length; n++) {
+            countries[n].labelOn();
+        }
         displayMessage(6);
         break;
-    case 7: console.log("trying to change to gunDeathsWithoutSuicdePer5Mil");
+    case 7: 
         gunDeathsWithoutSuicdePer5Mil();
+        for (let n = 0; n < countries.length; n++) {
+            countries[n].labelOn();
+        }
         displayMessage(7);
         break;
     default:
