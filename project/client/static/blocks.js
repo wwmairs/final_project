@@ -22,24 +22,23 @@ const GUN_DEATH_COLOR = "#990000";
 const GUN_SUICIDE_COLOR = "#cccccc";
 const SUICIDE_COLOR = "#004C99";
 
-const VIEW_DESCRIPTION = ["description 1",
-                          "description 2",
-                          "description 3",
-                          "description 4",
-                          "description 5",
-                          "description 6",
-                          "description 7",
-                          "description 8",
-                          "description 9",
+const VIEW_DESCRIPTION = ["A closer look at gun violence",
+                          "Population",
+                          "Scaling down",
+                          "Five million people",
+                          "Gun deaths per five million",
+                          "Suicide by gun",
+                          "Intersection of suicide and gun deaths",
+                          "Gun deaths adjusted for suicide"
                          ]
-const VIEW_COPY = ["In the United States there are 89 civilian guns to every hundred people.  That's more than twice the rate in Germany, and twenty times that in the United Kingdom, where there are fewer than 4 guns per hundred people.  These six populations are ordered by the number of guns per capita.",
-              "These populations vary greatly, as well.",
-              "Let's look at the effects of these rates on a sample of five million people.",
+const VIEW_COPY = ["In the United States there are 89 civilian guns for every hundred people.  That's more than twice the rate in Germany, and twenty times that in the United Kingdom, where there are fewer than 4 guns per hundred people.  These six countries are ordered (left to right, top to bottom) by the number of guns per capita.",
+              "The populations of these six countries vary greatly, as well.",
+              "So, we'll look at multiple gun death statistics as rates of occurrence per five million people.",
               "With one square per person, you would need forty laptops to display all five million people.  This box only fits fifteen thousand",
-              "With one exception the rate of gun death is directly proportional to gun ownership.  But many causes make up these rates.",
-              "The majority of gun deaths are caused by suicide, which may affect how rates of gun death compare across countries with different rates of suicide.",
-              "The intersection of gun deaths and suicide, shown in grey, varies drasticly,",
-              "now the red is all gun deaths whose cause is not suicide"
+              "With the exception of Germany, the rate of gun death is directly proportional to gun ownership.  But many causes make up these rates.",
+              "The majority of gun deaths <a href='https://fivethirtyeight.com/features/gun-deaths/'>are suicides</a>.  This raises the question of whether prevalence of guns lead to more suicides, or more people commit suicide using guns in countries where there are more guns?",
+              "The intersection of gun deaths and suicide is shown in grey.  The rate of suicide across these countries is not shown to be correlated with the rate of gun deaths.  In fact, the United States has the lowest proportion of gun deaths that are suicides, at 62%, in contrast with Australia, where 83% of gun deaths are suicides.",
+              "Adjusting for suicide reveals an even greater discrepacy of gun death rates between the United States and other countries of similar socio-economic status."
              ]
 
 class Country {
@@ -583,11 +582,11 @@ function changeView(view) {
     b.allOff()
     switch(view) {
     case 0:
-        var s = Snap("#svg1");
-        var whiteRect = s.rect(0, 0,
-                               ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING,
-                               ((BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2) + BS_LABEL_PADDING).attr({fill: "white", "fill-opacity":1});
-        whiteRect.animate({"fill-opacity": 0}, 2000)
+        // var s = Snap("#svg1");
+        // var whiteRect = s.rect(0, 0,
+        //                        ((BS_WIDTH + BS_PADDING) * 3) + BS_PADDING,
+        //                        ((BS_HEIGHT + BS_PADDING + BS_LABEL_PADDING) * 2) + BS_LABEL_PADDING).attr({fill: "white", "fill-opacity":1});
+        // whiteRect.animate({"fill-opacity": 0}, 2000)
         landingView();
         for (let n = 0; n < countries.length; n++) {
             countries[n].labelOn();
