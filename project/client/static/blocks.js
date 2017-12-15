@@ -18,9 +18,9 @@ const BS_HEIGHT = 235
 const BS_WIDTH = 300
 const GUN_SCALE = 1
 
-const GUN_DEATH_COLOR = "red"
-const GUN_SUICIDE_COLOR = "purple"
-const SUICIDE_COLOR = "blue"
+const GUN_DEATH_COLOR = "#990000";
+const GUN_SUICIDE_COLOR = "#cccccc";
+const SUICIDE_COLOR = "#004C99";
 
 const VIEW_DESCRIPTION = ["description 1",
                           "description 2",
