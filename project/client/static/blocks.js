@@ -72,8 +72,9 @@ class Country {
         this.block.allOff();
     }
 
-    displayBlah() {
-        this.block.allOn();
+    displayGuns() {
+        let gunsPer100 = this.totalGuns / (this.population / 100000)
+        this.block.makeSquare(gunsPer100 / 100);
     }
 
     updateBlocks(size, padding) {
@@ -487,9 +488,9 @@ function makeCountries(cs) {
     }
 }
 
-function blahView() {
+function gunsView() {
     for (var i = 0; i < countries.length; i++) {
-        countries[i].displayBlah();
+        countries[i].displayGuns();
     }
 }
 
@@ -568,12 +569,12 @@ function changeView(view) {
     b.allOff()
     switch(view) {
     case 0:
-        blahView();
+        gunsView();
         for (let n = 0; n < countries.length; n++) {
             countries[n].labelOn();
         }
         displayMessage(0);
-        $("#scale-svg").next().html(String(POP_SCALE) + " people");
+        $("#scale-svg").next().html(String(100) + " guns");
         break;
     case 1:
         populationView();
