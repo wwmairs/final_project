@@ -76,6 +76,10 @@ class Country {
         this.block.allOff();
     }
 
+    displayLanding() {
+        this.block.allOn();
+    }
+
     displayGuns() {
         let gunsPer100 = this.totalGuns / (this.population / 100000)
         this.block.makeSquare(gunsPer100 / 100);
@@ -492,6 +496,12 @@ function makeCountries(cs) {
     }
 }
 
+function landingView() {
+    for (var i = 0; i < countries.length; i++) {
+        countries[i].displayLanding();
+    }
+}
+
 function gunsView() {
     for (var i = 0; i < countries.length; i++) {
         countries[i].displayGuns();
@@ -573,7 +583,7 @@ function changeView(view) {
     b.allOff()
     switch(view) {
     case 0:
-        gunsView();
+        landingView();
         for (let n = 0; n < countries.length; n++) {
             countries[n].labelOn();
         }
