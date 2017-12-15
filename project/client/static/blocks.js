@@ -32,13 +32,13 @@ const VIEW_DESCRIPTION = ["description 1",
                           "description 8",
                           "description 9",
                          ]
-const VIEW_COPY = ["this is our final project",
-              "here are the populations of each country",
-              "let's look at some rates per 5 million citizerns",
-              "it would take a ton of space to show all 5 million",
-              "woah, changed scale on ya; this is the number of gun deaths per 5 million people",
-              "oh shit, that blue stuff is all the gun deaths caused by suicide",
-              "let's look at the intersection between gun deaths and suicide",
+const VIEW_COPY = ["In the United States there are 89 civilian guns to every hundred people.  That's more than twice the rate in Germany, and twenty times that in the United Kingdom, where there are fewer than 4 guns per hundred people.  These six populations are ordered by the number of guns per capita.",
+              "These populations vary greatly, as well.",
+              "Let's look at the effects of these rates on a sample of five million people.",
+              "With one square per person, you would need forty laptops to display all five million people.  This box only fits fifteen thousand",
+              "With one exception the rate of gun death is directly proportional to gun ownership.  But many causes make up these rates.",
+              "The majority of gun deaths are caused by suicide, which may affect how rates of gun death compare across countries with different rates of suicide.",
+              "The intersection of gun deaths and suicide, shown in grey, varies drasticly,",
               "now the red is all gun deaths whose cause is not suicide"
              ]
 
