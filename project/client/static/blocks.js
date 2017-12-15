@@ -18,6 +18,10 @@ const BS_HEIGHT = 235
 const BS_WIDTH = 300
 const GUN_SCALE = 1
 
+const GUN_DEATH_COLOR = "red"
+const GUN_SUICIDE_COLOR = "purple"
+const SUICIDE_COLOR = "blue"
+
 const VIEW_DESCRIPTION = ["description 1",
                           "description 2",
                           "description 3",
@@ -98,10 +102,10 @@ class Country {
     colorByCategory() {
         let c1 = {"name"  : "gunSuicide",
                   "size"  : this.gunSuicide / GUN_SCALE,
-                  "color" : "red"};
+                  "color" : GUN_SUICIDE_COLOR};
         let c2 = {"name"  : "otherGunDeath",
                   "size"  : (this.gunDeaths - this.gunSuicide) / GUN_SCALE,
-                  "color" : "blue"};
+                  "color" : GUN_DEATH_COLOR};
         // this.block.makeSquareWithCategories([c1, c2]);
         this.block.allOff();
         this.block.makeSquareWithColor(this.gunDeaths / GUN_SCALE, "blue");
@@ -115,7 +119,7 @@ class Country {
         // draw square for gun deaths (some color, gun deaths per 100,000)
         this.block.makeSquareWithColor(per5Mil(this.gunDeaths,
                                                this.population),
-                                       "red");
+                                       GUN_DEATH_COLOR);
     }
 
     displayGunDeathsWithSuicidesPer5Mil() {
@@ -124,22 +128,22 @@ class Country {
         // draw square for gun deaths (some color, gun deaths per 100,000)
         this.block.makeSquareWithColor(per5Mil(this.gunDeaths,
                                                this.population),
-                                       "red");
+                                       GUN_DEATH_COLOR);
         this.block.makeSquareWithColor(per5Mil(this.gunSuicide,
                                                this.population),
-                                       "blue");
+                                       GUN_SUICIDE_COLOR);
     }
 
     displayGunDeathSuicideOverlapPer5Mil() {
         let c1 = {"name"  : "gunDeath",
                   "size"  : per5Mil(this.gunDeaths, this.population),
-                  "color" : "red"};
+                  "color" : GUN_DEATH_COLOR};
         let c2 = {"name"  : "totalSuicide",
                   "size"  : per5Mil(this.totalSuicide, this.population),
-                  "color" : "blue"};
+                  "color" : SUICIDE_COLOR};
         let c3 = {"name"  : "gunSuicide",
                   "size"  : per5Mil(this.gunSuicide, this.population),
-                  "color" : "purple"};
+                  "color" : GUN_SUICIDE_COLOR};
         this.block.allOff();
         this.block.overlap([c1, c2, c3]);
     }
@@ -151,7 +155,7 @@ class Country {
         //                                "grey");
         this.block.makeSquareWithColor(per5Mil(this.gunDeaths - this.gunSuicide,
                                                this.population),
-                                       "red");
+                                       GUN_DEATH_COLOR);
     }
 }
 
