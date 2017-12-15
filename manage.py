@@ -44,6 +44,13 @@ def create_data():
 	gun_suicides=21175,
 	suicides=41149,
         guns=285000000)
+    yermany = Country(
+        name='Germany',
+        pop=81690000,
+        gun_deaths=926,
+    gun_suicides=719,
+    suicides=14517,
+        guns=25400000)
     fronce = Country(
         name='France',
         pop=66600000,
@@ -51,20 +58,6 @@ def create_data():
 	gun_suicides=1335,
 	suicides=9695,
         guns=12000000)
-    yermany = Country(
-        name='Germany',
-        pop=81690000,
-        gun_deaths=926,
-	gun_suicides=719,
-	suicides=14517,
-        guns=25400000)
-    lawstralia = Country(
-        name='Australia',
-        pop=23790000,
-        gun_deaths=211,
-	gun_suicides=177,
-	suicides=2568,
-        guns=3010000)
     canaduh = Country(
         name='Canada',
         pop=35850000,
@@ -72,6 +65,13 @@ def create_data():
 	gun_suicides=518,
 	suicides=3726,
         guns=8919328)
+    lawstralia = Country(
+        name='Australia',
+        pop=23790000,
+        gun_deaths=211,
+    gun_suicides=177,
+    suicides=2568,
+        guns=3010000)
     angland = Country(
         name='United Kingdom',
         pop=65130000,
@@ -80,7 +80,7 @@ def create_data():
 	suicides=6045,
         guns=2403186)
 
-    for country in [americuh, fronce, yermany, lawstralia, canaduh, angland]:
+    for country in [americuh, yermany, fronce, canaduh, lawstralia, angland]:
         db.session.add(country)
 
     db.session.commit()
